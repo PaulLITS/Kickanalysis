@@ -11,8 +11,9 @@ login_url = "https://api.kickbase.com/v4/user/login"
 import datetime
 
 
-def parse_date(timestamp) -> datetime.datetime:
-    return datetime.datetime.fromtimestamp(timestamp)
+
+def parse_date(date: str) -> datetime.datetime:
+    return datetime.datetime.fromisoformat(date.replace("Z", "+00:00"))
 
 class ApiManager:
     def __init__(self):
