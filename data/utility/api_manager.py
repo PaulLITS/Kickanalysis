@@ -32,14 +32,14 @@ class ApiManager:
         response = session.post(login_url, json=login_payload)
         if response.status_code == 200:
             j = response.json()
-            self.token = j["token"]
-            self.token_expire = Kickbase.parse_date(j["tokenExp"])
+            self.token = j["tkn"]
+            self.token_expire = Kickbase.parse_date(j["tknex"])
 
             self._username = options.mail
             self._password = options.pw
 
-            user = Kickbase.User(j["user"])
-            leagues = [Kickbase.LeagueData(d) for d in j["leagues"]]
+            user = Kickbase.User(j["u"])
+            leagues = [Kickbase.LeagueData(d) for d in j["srvl"]]
 
         elif response.status_code == 401:
             raise Exception()
