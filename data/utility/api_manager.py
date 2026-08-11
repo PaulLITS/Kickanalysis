@@ -1,9 +1,13 @@
 import time
 from datetime import datetime
+import requests
 
 from kickbase_api.kickbase import Kickbase
 
 from utility.constants import TIMEZONE_DE
+
+login_url = "https://api.kickbase.com/v4/user/login"
+
 
 
 class ApiManager:
@@ -17,8 +21,30 @@ class ApiManager:
 
     def init(self, options):
         # Kickbase login
-        self.api = Kickbase()
-        _, leagues = self.api.login(options.mail, options.pw)
+        login_payload = {
+        "em": options.mail,
+        "loy": "false",
+        "pass": options.pw,
+        "rep": {}
+        }
+        
+        session = requests.Session()
+        response = session.post(login_url, json=login_payload)
+        if response.status_code == 200:
+            j = response.json()
+            self.token = j["token"]
+            self.token_expire = Kickbase.parse_date(j["tokenExp"])
+
+            self._username = options.mail
+            self._password = options.pw
+
+            user = Kickbase.User(j["user"])
+            leagues = [Kickbase.LeagueData(d) for d in j["leagues"]]
+
+        elif response.status_code == 401:
+            raise Exception()
+        else:
+            raise Exception()
 
         # Setup league
         if options.league:
