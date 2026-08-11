@@ -8,7 +8,11 @@ from utility.constants import TIMEZONE_DE
 
 login_url = "https://api.kickbase.com/v4/user/login"
 
+import datetime
 
+
+def parse_date(timestamp) -> datetime.datetime:
+    return datetime.datetime.fromtimestamp(timestamp)
 
 class ApiManager:
     def __init__(self):
@@ -33,7 +37,7 @@ class ApiManager:
         if response.status_code == 200:
             j = response.json()
             self.token = j["tkn"]
-            self.token_expire = Kickbase.parse_date(j["tknex"])
+            self.token_expire = parse_date(j["tknex"])
 
             self._username = options.mail
             self._password = options.pw
