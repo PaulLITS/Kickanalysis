@@ -43,7 +43,7 @@ class ApiManager:
             self._username = options.mail
             self._password = options.pw
 
-            user = Kickbase.User(j["u"])
+            user = Kickbase.user(j["u"])
             leagues = [Kickbase.LeagueData(d) for d in j["srvl"]]
 
         elif response.status_code == 401:
