@@ -44,7 +44,7 @@ class ApiManager:
             self._password = options.pw
 
            
-            leagues = [Kickbase.league_data(d) for d in j["srvl"]]
+            leagues = j["srvl"]
 
         elif response.status_code == 401:
             raise Exception()
