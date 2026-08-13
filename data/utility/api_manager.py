@@ -2,22 +2,20 @@ import time
 from datetime import datetime, timedelta
 import requests
 import json
-from kickbase_api.kickbase import Kickbase
+import pytz
+import sys
 
-from utility.constants import TIMEZONE_DE
+sys.stdout.reconfigure(encoding="utf-8")
+
+TIMEZONE_DE = pytz.timezone('Europe/Berlin')
+def parse_date(date: str) -> datetime:
+    return datetime.fromisoformat(date.replace("Z", "+00:00"))
 
 login_url = "https://api.kickbase.com/v4/user/login"
 
-import datetime
-
-
-
-def parse_date(date: str) -> datetime.datetime:
-    return datetime.datetime.fromisoformat(date.replace("Z", "+00:00"))
-
 class ApiManager:
     def __init__(self):
-        base_url: str = "https://api.kickbase.com/v4"
+        self.base_url: str = "https://api.kickbase.com/v4"
         self.users = None
         self.throttle = None
         self.cache = None
@@ -25,7 +23,8 @@ class ApiManager:
         self.api = None
         self.start = None
         self.leagueid = None
-
+        
+        
     def init(self, options):
         # Kickbase login
         login_payload = {
@@ -70,24 +69,25 @@ class ApiManager:
         self.throttle = 0.01
         
         url = f"https://api.kickbase.com/v4/leagues/{self.leagueid}/settings/managers"
-        
+
         payload = {}
         headers = {
            'Accept': 'application/json',
            'Authorization': f'Bearer {self.token}',
            'Content-Type': 'application/json'
         }
-        
+
         response = requests.request("GET", url, headers=headers, data=payload)
 
-        
+        # Setup user list
         data = response.json()
 
         self.users = [user["i"] for user in data["us"] 
                       if user["n"] not in options.ignore ]
-
         self.start = TIMEZONE_DE.localize(datetime.strptime(options.start, '%d.%m.%Y'))
-
+    
+    
+    
     def _auth_cookie(self):
         return "kkstrauth={}".format(self.token)
 
@@ -136,7 +136,7 @@ class ApiManager:
 
         return self.cache[endpoint]
     
-
+    
     def get_transfers_raw(self, user_id):
         transfers_raw = []
         offset = 0
