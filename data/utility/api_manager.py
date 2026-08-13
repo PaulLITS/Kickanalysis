@@ -1,7 +1,7 @@
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 import requests
-
+import json
 from kickbase_api.kickbase import Kickbase
 
 from utility.constants import TIMEZONE_DE
@@ -17,12 +17,14 @@ def parse_date(date: str) -> datetime.datetime:
 
 class ApiManager:
     def __init__(self):
+        base_url: str = "https://api.kickbase.com/v4"
         self.users = None
         self.throttle = None
         self.cache = None
         self.league = None
         self.api = None
         self.start = None
+        self.leagueid = None
 
     def init(self, options):
         # Kickbase login
@@ -62,40 +64,95 @@ class ApiManager:
                 raise Exception(f'League "{options.league}" not found.')
         else:
             self.league = leagues[0]
+            self.leagueid = leagues[0]["id"]
 
         self.cache = {}
         self.throttle = 0.01
+        
+        url = f"https://api.kickbase.com/v4/leagues/{self.leagueid}/settings/managers"
+        
+        payload = {}
+        headers = {
+           'Accept': 'application/json',
+           'Authorization': f'Bearer {self.token}',
+           'Content-Type': 'application/json'
+        }
+        
+        response = requests.request("GET", url, headers=headers, data=payload)
 
-        # Setup user list
-        self.users = [user for user in self.api.league_users(self.league)
-                      if user.name not in options.ignore]
+        
+        data = response.json()
+
+        self.users = [user["i"] for user in data["us"] 
+                      if user["n"] not in options.ignore ]
 
         self.start = TIMEZONE_DE.localize(datetime.strptime(options.start, '%d.%m.%Y'))
 
-    def get(self, url: str):
-        if url not in self.cache.keys():
+    def _auth_cookie(self):
+        return "kkstrauth={}".format(self.token)
+
+    def _is_token_valid(self):
+        if self.token is None or self.token_expire is None:
+            return False
+        return self.token_expire > datetime.now() - timedelta(days=1)
+    
+    def _url_for_endpoint(self, endpoint: str):
+        return self.base_url + endpoint
+    
+    def get(self, endpoint: str):
+        if endpoint not in self.cache:
             time.sleep(self.throttle)
 
-            delay = time.time()
-            self.cache[url] = self.api._do_get(url, True).json()
-            delay = time.time() - delay
+            # Make sure the login token is still valid
+            if not self._is_token_valid:
+                self.login(self._username, self._password)
 
+            headers = {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+
+            # Add authentication
+            headers["Cookie"] = self._auth_cookie()
+
+            # Measure request time
+            start = time.time()
+
+            response = requests.get(
+                self._url_for_endpoint(endpoint),
+                headers=headers
+            )
+
+            delay = time.time() - start
+
+            # Update throttle
             self.throttle = (self.throttle + delay) / 2
 
             if self.throttle > 1:
                 self.throttle = 1
 
-        return self.cache[url]
+            # Store parsed JSON in cache
+            self.cache[endpoint] = response.json()
+
+        return self.cache[endpoint]
+    
 
     def get_transfers_raw(self, user_id):
         transfers_raw = []
         offset = 0
 
-        response = self.get(f'/leagues/{self.league.id}/users/{user_id}/feed?filter=12&start={offset}')
+        while True:
+            endpoint = (
+                f"/leagues/{self.leagueid}/managers/{user_id}/transfer"
+                f"?start={offset}"
+            )
 
-        while response['items']:
-            transfers_raw = transfers_raw + response['items']
-            response = self.get(f'/leagues/{self.league.id}/users/{user_id}/feed?filter=12&start={offset}')
+            response = self.get(endpoint)
+
+            if not response["it"]:
+                break
+
+            transfers_raw += response["it"]
             offset += 25
 
         return transfers_raw
