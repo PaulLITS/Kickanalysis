@@ -10,10 +10,10 @@ from utility.constants import TIMEZONE_DE
 
 
 def calculate_revenue_data_daily(turnovers):
-    user_transfer_revenue = {user['i']: [] for user in manager.users}
+    user_transfer_revenue = {user['user']: [] for user in manager.users}
     for buy, sell in turnovers:
         revenue = sell['value'] - buy['value']
-        user_transfer_revenue[buy['i']].append((revenue, sell['date']))
+        user_transfer_revenue[buy['user']].append((revenue, sell['date']))
 
     # Add start and end points
     for _, data in user_transfer_revenue.items():
@@ -31,7 +31,7 @@ def calculate_revenue_data_daily(turnovers):
 
         dataframes[user] = df
 
-    data = {user['i']: [] for user in manager.users}
+    data = {user['user']: [] for user in manager.users}
     for user, df in dataframes.items():
         for entry in df.to_numpy().tolist():
             data[user].append((entry[0], entry[1]))
