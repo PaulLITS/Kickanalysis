@@ -183,5 +183,11 @@ class ApiManager:
                 occurred_days.append(matchday["day"])
 
         return max(occurred_days) if occurred_days else None
-
+    
+    def league_user_players(self, user):
+        
+        r = self.get(f"/leagues/{self.leagueId}/managers/{user}/squad")
+        
+        return [player["pi"] for player in r["it"]]
+    
 manager = ApiManager()
