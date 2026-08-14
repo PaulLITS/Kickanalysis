@@ -186,7 +186,7 @@ class ApiManager:
     
     def league_user_players(self, user):
         
-        r = self.get(f"/leagues/{self.leagueId}/managers/{user}/squad")
+        r = self.get(f"/leagues/{self.leagueid}/managers/{user}/squad")
         
         return [player["pi"] for player in r["it"]]
     
