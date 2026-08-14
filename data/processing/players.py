@@ -86,7 +86,7 @@ def get_players_mw_change():
             players.append(player)
 
     for player in tqdm(players, desc="Collecting market value change of last three days for each player", miniters=2):
-        player_stats = manager.get(f'/leagues/{manager.leagueid}/players/{player["i"]}')
+        player_stats = manager.get(f'/leagues/{manager.leagueid}/players/{player["pi"]}')
 
         if 'oui' != "0":
             manager_name = player_stats['leaguePlayer']['userName']
