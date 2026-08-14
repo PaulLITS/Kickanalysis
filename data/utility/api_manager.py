@@ -188,6 +188,6 @@ class ApiManager:
         
         r = self.get(f"/leagues/{self.leagueid}/managers/{user}/squad")
         
-        return [player["pi"] for player in r["it"]]
+        return [player for player in r["it"]]
     
 manager = ApiManager()
