@@ -31,7 +31,7 @@ def calculate_revenue_data_daily(turnovers):
 
         dataframes[user] = df
 
-    data = {user['user']: [] for user in manager.users}
+    data = {user['n']: [] for user in manager.users}
     for user, df in dataframes.items():
         for entry in df.to_numpy().tolist():
             data[user].append((entry[0], entry[1]))
