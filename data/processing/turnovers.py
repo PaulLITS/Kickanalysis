@@ -32,7 +32,7 @@ def get_turnovers():
                               'type': transfer_type,
                               'trade_partner': trade_partner,
                               'team_id': buy['tid'],
-                              'player_id': buy['pii'],
+                              'player_id': buy['pi'],
                               'user': user['n']})
 
         # Remove duplicates given by api
