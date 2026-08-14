@@ -4,6 +4,7 @@ import requests
 import json
 import pytz
 import sys
+from typing import Union
 
 sys.stdout.reconfigure(encoding="utf-8")
 
@@ -156,6 +157,31 @@ class ApiManager:
             offset += 25
 
         return transfers_raw
+    
+    def league_current_matchday(self):
+        response = self.get("/competitions/1/matchdays")
 
+        now = datetime(2026, 10, 24, 20, 30, tzinfo=TIMEZONE_DE)
+
+        occurred_days = []
+
+        for matchday in response["it"]:
+            matches = matchday["it"]
+
+            last_match = max(
+                matches,
+                key=lambda match: datetime.fromisoformat(
+                    match["dt"].replace("Z", "+00:00")
+                )
+            )
+
+            last_match_time = datetime.fromisoformat(
+                last_match["dt"].replace("Z", "+00:00")
+            ).astimezone(TIMEZONE_DE)
+
+            if last_match_time <= now:
+                occurred_days.append(matchday["day"])
+
+        return max(occurred_days) if occurred_days else None
 
 manager = ApiManager()

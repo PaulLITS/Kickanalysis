@@ -10,7 +10,7 @@ from utility.constants import TIMEZONE_DE
 
 
 def calculate_revenue_data_daily(turnovers):
-    user_transfer_revenue = {user.name: [] for user in manager.users}
+    user_transfer_revenue = {user['i']: [] for user in manager.users}
     for buy, sell in turnovers:
         revenue = sell['value'] - buy['value']
         user_transfer_revenue[buy['user']].append((revenue, sell['date']))
@@ -31,7 +31,7 @@ def calculate_revenue_data_daily(turnovers):
 
         dataframes[user] = df
 
-    data = {user.name: [] for user in manager.users}
+    data = {user['i']: [] for user in manager.users}
     for user, df in dataframes.items():
         for entry in df.to_numpy().tolist():
             data[user].append((entry[0], entry[1]))
@@ -47,21 +47,21 @@ def calculate_team_value_per_match_day():
         start_match_day = next((match_day_number for match_day_number, match_day_date in MATCH_DAYS.items()
                                 if match_day_date > manager.start), 1)
         # Get match day number of last occurred match day
-        end_match_day = manager.api.league_stats(manager.league).current_day
+        end_match_day = manager.league_current_matchday()
 
-        manager_stats = manager.get(f'/leagues/{manager.league.id}/users/{user.id}/stats')
+        manager_stats = manager.get(f'/leagues/{manager.leagueid}/managers/{user.id}/dashboard')
 
         # Setup result dict
         team_values = {match_day: 0 for match_day in range(start_match_day, end_match_day + 1)}
 
         # Extract team value on match day
         for match_day_number in team_values.keys():
-            for team_value in manager_stats['teamValues']:
-                if MATCH_DAYS[match_day_number].date() == datetime.fromisoformat(team_value['d']).date():
-                    team_values[match_day_number] = team_value['v']
+            for team_value in manager_stats:
+                if MATCH_DAYS[match_day_number].date() == datetime.fromisoformat(MATCH_DAYS[team_value['nd']]).date():
+                    team_values[match_day_number] = team_value['tv']
                     break
 
-        result[user.name] = team_values
+        result[user["n"]] = team_values
 
     with open('./data/team_values.json', 'w') as f:
         f.writelines(json.dumps(result))
