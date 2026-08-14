@@ -13,7 +13,7 @@ def calculate_revenue_data_daily(turnovers):
     user_transfer_revenue = {user['i']: [] for user in manager.users}
     for buy, sell in turnovers:
         revenue = sell['value'] - buy['value']
-        user_transfer_revenue[buy['user']].append((revenue, sell['date']))
+        user_transfer_revenue[buy['i']].append((revenue, sell['date']))
 
     # Add start and end points
     for _, data in user_transfer_revenue.items():
