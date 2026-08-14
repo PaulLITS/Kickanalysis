@@ -34,14 +34,14 @@ def get_taken_players():
                 break
             real_player = manager.get(f'/leagues/{manager.leagueid}/players/{player["pi"]}')
             taken_players.append({'first_name': real_player['fn'],
-                                  'last_name': real_player['pn'],
+                                  'last_name': real_player['ln'],
                                   'team_id': real_player['tid'],
-                                  'points': real_player["p"],
+                                  'points': real_player["tp"],
                                   'average_points': real_player["ap"],
                                   'market_value': real_player['mv'],
                                   'buy_price': buy_value,
                                   'user': user['n'],
-                                  'player_id': real_player['pi'],
+                                  'player_id': real_player['i'],
                                   'date': bought_date,
                                   'position': constants.POSITIONS[real_player['pos']],
                                   'trend': real_player['tfhmvt']})
@@ -62,9 +62,9 @@ def get_free_players(taken_players):
     
     for player in manager.get(f'/competitions/1/players')["it"]: #change the number for other leagues then bundesliga
         if player["i"] not in taken_player_ids:
-            real_player = manager.get(f'/leagues/{manager.leagueid}/players/{player["i"]}')
+            real_player = manager.get(f'/leagues/{manager.leagueid}/players/{player["pi"]}')
             free_players.append({ 'first_name': real_player['fn'],
-                                  'last_name': real_player['pn'],
+                                  'last_name': real_player['ln'],
                                   'team_id': real_player['tid'],
                                   'points': real_player["tp"],
                                   'average_points': real_player["ap"],
@@ -98,7 +98,7 @@ def get_players_mw_change():
 
         result.append({'player_id': player['i'],
                        'first_name': player['fn'],
-                       'last_name': player['pn'],
+                       'last_name': player['ln'],
                        'market_value': player_stats['mv'],
                        'today': market_values[0]['mv'] - market_values[1]['mv'],
                        'one_day_ago': market_values[1]['mv'] - market_values[2]['mv'],
