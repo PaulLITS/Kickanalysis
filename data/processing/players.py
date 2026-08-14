@@ -32,7 +32,7 @@ def get_taken_players():
                 bought_date = parser.parse(transfer['dt'])
 
                 break
-            real_player = manager.get(f'/leagues/{manager.leagueid}/players/{player["i"]}')
+            real_player = manager.get(f'/leagues/{manager.leagueid}/players/{player["pi"]}')
             taken_players.append({'first_name': real_player['fn'],
                                   'last_name': real_player['pn'],
                                   'team_id': real_player['tid'],
