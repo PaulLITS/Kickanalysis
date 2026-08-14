@@ -10,7 +10,7 @@ from utility.constants import TIMEZONE_DE
 
 
 def calculate_revenue_data_daily(turnovers):
-    user_transfer_revenue = {user['user']: [] for user in manager.users}
+    user_transfer_revenue = {user['n']: [] for user in manager.users}
     for buy, sell in turnovers:
         revenue = sell['value'] - buy['value']
         user_transfer_revenue[buy['user']].append((revenue, sell['date']))
