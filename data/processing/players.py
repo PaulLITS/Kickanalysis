@@ -61,7 +61,7 @@ def get_free_players(taken_players):
 
     
     for player in manager.get(f'/competitions/1/players')["it"]: #change the number for other leagues then bundesliga
-        if player["i"] not in taken_player_ids:
+        if player["pi"] not in taken_player_ids:
             real_player = manager.get(f'/leagues/{manager.leagueid}/players/{player["pi"]}')
             free_players.append({ 'first_name': real_player['fn'],
                                   'last_name': real_player['ln'],
@@ -96,14 +96,14 @@ def get_players_mw_change():
         market_values = manager.get(f'/leagues/{manager.leagueid}/players/8329/marketvalue/365')["it"]
         market_values.reverse()
 
-        result.append({'player_id': player['i'],
-                       'first_name': player['fn'],
-                       'last_name': player['ln'],
+        result.append({'player_id': player_stats['i'],
+                       'first_name': player_stats['fn'],
+                       'last_name': player_stats['ln'],
                        'market_value': player_stats['mv'],
                        'today': market_values[0]['mv'] - market_values[1]['mv'],
                        'one_day_ago': market_values[1]['mv'] - market_values[2]['mv'],
                        'two_days_ago': market_values[2]['mv'] - market_values[3]['mv'],
-                       'team_id': player['tid'],
+                       'team_id': player_stats['tid'],
                        'manager': manager_name})
 
     with open('./data/mw_changes.json', 'w') as f:
