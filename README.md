@@ -1,3 +1,7 @@
+ 
+ This is an updated version of roman-las Kickbase analysis tool
+
+ 
  :warning: After the new Kickbase version from 2024, a lot of code broke and i don't have the time to fix it at the moment. :warning:
 
 **For educational and non-profit uses only. All trademarks, logos and brand names are the property of their respective owners.**

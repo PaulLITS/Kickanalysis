@@ -14,28 +14,26 @@ def get_turnovers():
     for user in tqdm(manager.users, desc="Collecting turnovers from sold players"):
         transfers = []
 
-        for buy in manager.get_transfers_raw(user.id):
-            if parser.parse(buy['date']) < manager.start:
+        for buy in manager.get_transfers_raw(user['i']):
+            if parser.parse(buy['dt']) < manager.start:
                 continue
 
-            transfer_type = 'buy' if buy['type'] == 12 else 'sell'
+            transfer_type = 'buy' if buy['tty'] == 1 else 'sell'
 
-            if 'bn' in buy['meta']:
-                trade_partner = buy['meta']['bn']
-            elif 'sn' in buy['meta']:
-                trade_partner = buy['meta']['sn']
+            if 'othnm' in buy:
+                trade_partner = buy['othnm']
             else:
                 trade_partner = 'Computer'
 
-            transfers.append({'date': parser.parse(buy['date']),
-                              'first_name': buy['meta']['pfn'],
-                              'last_name': buy['meta']['pln'],
-                              'value': buy['meta']['p'],
+            transfers.append({'date': parser.parse(buy['dt']),
+                              'first_name': buy['pn'],
+                              'last_name': buy['pn'],
+                              'value': buy['trp'],
                               'type': transfer_type,
                               'trade_partner': trade_partner,
-                              'team_id': buy['meta']['tid'],
-                              'player_id': buy['meta']['pid'],
-                              'user': user.name})
+                              'team_id': buy['tid'],
+                              'player_id': buy['pii'],
+                              'user': user['n']})
 
         # Remove duplicates given by api
         transfers = list({frozenset(item.items()): item for item in transfers}.values())

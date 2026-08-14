@@ -82,7 +82,7 @@ class ApiManager:
         # Setup user list
         data = response.json()
 
-        self.users = [user["i"] for user in data["us"] 
+        self.users = [user for user in data["us"] 
                       if user["n"] not in options.ignore ]
         self.start = TIMEZONE_DE.localize(datetime.strptime(options.start, '%d.%m.%Y'))
     
