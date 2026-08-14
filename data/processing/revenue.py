@@ -49,7 +49,7 @@ def calculate_team_value_per_match_day():
         # Get match day number of last occurred match day
         end_match_day = manager.league_current_matchday()
 
-        manager_stats = manager.get(f'/leagues/{manager.leagueid}/managers/{user.id}/dashboard')
+        manager_stats = manager.get(f'/leagues/{manager.leagueid}/managers/{user['i']}/dashboard')
 
         # Setup result dict
         team_values = {match_day: 0 for match_day in range(start_match_day, end_match_day + 1)}
