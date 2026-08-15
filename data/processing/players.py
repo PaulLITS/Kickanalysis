@@ -74,7 +74,6 @@ def get_free_players(taken_players):
                                   'points': real_player.get('tp'),
                                   'average_points': real_player.get('ap'),
                                   'market_value': real_player['mv'],
-                                  'buy_price': real_player['cv'],
                                   'player_id': real_player['i'],
                                   'position': constants.POSITIONS[real_player['pos']],
                                   'trend': real_player['tfhmvt']})
