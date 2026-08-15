@@ -158,22 +158,29 @@ class ApiManager:
 
         return transfers_raw
     
-    def league_current_matchday(self):
+    def league_current_matchday(self,mode=None):
         response = self.get("/competitions/1/matchdays")
 
-        now = datetime.now(TIMEZONE_DE)
+        now = datetime(2026, 10, 24, 20, 30, tzinfo=TIMEZONE_DE)
 
         occurred_days = []
 
         for matchday in response["it"]:
             matches = matchday["it"]
-
-            last_match = max(
-                matches,
-                key=lambda match: datetime.fromisoformat(
-                    match["dt"].replace("Z", "+00:00")
+            if mode == "min":
+                last_match = min(
+                                matches,
+                                key=lambda match: datetime.fromisoformat(
+                                    match["dt"].replace("Z", "+00:00")
+                                )
+                            )
+            else:
+                last_match = max(
+                    matches,
+                    key=lambda match: datetime.fromisoformat(
+                        match["dt"].replace("Z", "+00:00")
+                    )
                 )
-            )
 
             last_match_time = datetime.fromisoformat(
                 last_match["dt"].replace("Z", "+00:00")
