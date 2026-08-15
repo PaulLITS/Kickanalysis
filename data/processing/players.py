@@ -34,18 +34,18 @@ def get_taken_players():
                 break
             real_player = manager.get(f'/leagues/{manager.leagueid}/players/{player["pi"]}')
             taken_players.append({
-                'first_name': real_player['fn'],
-                'last_name': real_player['ln'],
-                'team_id': real_player['tid'],
+                'first_name': real_player.get('fn'),
+                'last_name': real_player.get('ln'),
+                'team_id': real_player.get('tid'),
                 'points': real_player.get('tp'),
                 'average_points': real_player.get('ap'),
-                'market_value': real_player['mv'],
+                'market_value': real_player.get('mv'),
                 'buy_price': buy_value,
-                'user': user['n'],
-                'player_id': real_player['i'],
+                'user': user.get('n'),
+                'player_id': real_player.get('i'),
                 'date': bought_date,
                 'position': constants.POSITIONS[real_player['pos']],
-                'trend': real_player['tfhmvt']
+                'trend': real_player.get('tfhmvt')
             })
 
         result = result + taken_players
@@ -68,15 +68,15 @@ def get_free_players(taken_players):
     for player in players:
         if player["i"] not in taken_player_ids:
             real_player = manager.get(f'/leagues/{manager.leagueid}/players/{player["i"]}')
-            free_players.append({ 'first_name': real_player['fn'],
-                                  'last_name': real_player['ln'],
-                                  'team_id': real_player['tid'],
+            free_players.append({ 'first_name': real_player.get('fn'),
+                                  'last_name': real_player.get('ln'),
+                                  'team_id': real_player.get('tid'),
                                   'points': real_player.get('tp'),
                                   'average_points': real_player.get('ap'),
-                                  'market_value': real_player['mv'],
-                                  'player_id': real_player['i'],
+                                  'market_value': real_player.get('mv'),
+                                  'player_id': real_player.get('i'),
                                   'position': constants.POSITIONS[real_player['pos']],
-                                  'trend': real_player['tfhmvt']})
+                                  'trend': real_player.get('tfhmvt')})
 
     with open('./data/free_players.json', 'w') as f:
         f.writelines(json.dumps(free_players))
@@ -101,9 +101,9 @@ def get_players_mw_change():
         market_values = manager.get(f'/leagues/{manager.leagueid}/players/{player["i"]}/marketvalue/365')["it"]
         market_values.reverse()
 
-        result.append({'player_id': player_stats['i'],
-                       'first_name': player_stats['fn'],
-                       'last_name': player_stats['ln'],
+        result.append({'player_id': player_stats.get('i'),
+                       'first_name': player_stats.get('fn'),
+                       'last_name': player_stats.get('ln'),
                        'market_value': player_stats.get('mv'),
                        'today': market_values[0].get('mv') - market_values[1].get('mv'),
                        'one_day_ago': market_values[1].get('mv') - market_values[2].get('mv'),
