@@ -67,7 +67,7 @@ def get_free_players(taken_players):
     
     for player in players:
         if player["i"] not in taken_player_ids:
-            real_player = manager.get(f'/leagues/{manager.leagueid}/players/{player["pi"]}')
+            real_player = manager.get(f'/leagues/{manager.leagueid}/players/{player["i"]}')
             free_players.append({ 'first_name': real_player['fn'],
                                   'last_name': real_player['ln'],
                                   'team_id': real_player['tid'],
