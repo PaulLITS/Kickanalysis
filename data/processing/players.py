@@ -101,10 +101,10 @@ def get_players_mw_change():
         result.append({'player_id': player_stats['i'],
                        'first_name': player_stats['fn'],
                        'last_name': player_stats['ln'],
-                       'market_value': player_stats['mv'],
-                       'today': market_values[0]['mv'] - market_values[1]['mv'],
-                       'one_day_ago': market_values[1]['mv'] - market_values[2]['mv'],
-                       'two_days_ago': market_values[2]['mv'] - market_values[3]['mv'],
+                       'market_value': player_stats.get('mv'),
+                       'today': market_values[0].get('mv') - market_values[1].get('mv'),
+                       'one_day_ago': market_values[1].get('mv') - market_values[2].get('mv'),
+                       'two_days_ago': market_values[2].get('mv') - market_values[3].get('mv'),
                        'team_id': player_stats['tid'],
                        'manager': manager_name})
 
