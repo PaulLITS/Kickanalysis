@@ -161,7 +161,7 @@ class ApiManager:
     def league_current_matchday(self):
         response = self.get("/competitions/1/matchdays")
 
-        now = datetime(2026, 10, 24, 20, 30, tzinfo=TIMEZONE_DE)
+        now = datetime.now(TIMEZONE_DE)
 
         occurred_days = []
 

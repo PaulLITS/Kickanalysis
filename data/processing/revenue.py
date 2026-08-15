@@ -39,29 +39,33 @@ def calculate_revenue_data_daily(turnovers):
     with open('./data/revenue_sum.json', 'w') as f:
         f.writelines(json.dumps(data))
 
-
+        
 def calculate_team_value_per_match_day():
-    result = {}
-    for user in tqdm(manager.users, desc="Collecting each managers team value per match day"):
-        # Get match day number to start from (not necessarily 1 because not every league starts on season start)
-        start_match_day = next((match_day_number for match_day_number, match_day_date in MATCH_DAYS.items()
-                                if match_day_date > manager.start), 1)
-        # Get match day number of last occurred match day
-        end_match_day = manager.league_current_matchday()
+    try:
+        with open("./data/team_values.json", "r") as f:
+            result = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        result = {}
 
-        manager_stats = manager.get(f'/leagues/{manager.leagueid}/managers/{user['i']}/dashboard')
+    current_match_day = manager.league_current_matchday("min")
+    if not current_match_day in result:
+        for user in tqdm(
+            manager.users,
+            desc="Collecting team values for current match day"
+        ):
+            manager_stats = manager.get(
+                f"/leagues/{manager.leagueid}/managers/{user['i']}/dashboard"
+            )
 
-        # Setup result dict
-        team_values = {match_day: 0 for match_day in range(start_match_day, end_match_day + 1)}
+            # Get current team value
+            current_team_value = manager_stats["tv"]
 
-        # Extract team value on match day
-        for match_day_number in team_values.keys():
-            for team_value in manager_stats:
-                if MATCH_DAYS[match_day_number].date() == datetime.fromisoformat(MATCH_DAYS[team_value['nd']]).date():
-                    team_values[match_day_number] = team_value['tv']
-                    break
+            # Get existing manager data or create it
+            manager_values = result.setdefault(user["n"], {})
 
-        result[user["n"]] = team_values
+            # Add current match day's value
+            manager_values[str(current_match_day)] = current_team_value
 
-    with open('./data/team_values.json', 'w') as f:
-        f.writelines(json.dumps(result))
+        with open("./data/team_values.json", "w") as f:
+            json.dump(result, f, indent=2)
+    
