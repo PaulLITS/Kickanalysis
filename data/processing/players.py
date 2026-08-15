@@ -33,18 +33,20 @@ def get_taken_players():
 
                 break
             real_player = manager.get(f'/leagues/{manager.leagueid}/players/{player["pi"]}')
-            taken_players.append({'first_name': real_player['fn'],
-                                  'last_name': real_player['ln'],
-                                  'team_id': real_player['tid'],
-                                  'points': real_player["tp"],
-                                  'average_points': real_player["ap"],
-                                  'market_value': real_player['mv'],
-                                  'buy_price': buy_value,
-                                  'user': user['n'],
-                                  'player_id': real_player['i'],
-                                  'date': bought_date,
-                                  'position': constants.POSITIONS[real_player['pos']],
-                                  'trend': real_player['tfhmvt']})
+            taken_players.append({
+                'first_name': real_player['fn'],
+                'last_name': real_player['ln'],
+                'team_id': real_player['tid'],
+                'points': real_player.get('tp'),
+                'average_points': real_player.get('ap'),
+                'market_value': real_player['mv'],
+                'buy_price': buy_value,
+                'user': user['n'],
+                'player_id': real_player['i'],
+                'date': bought_date,
+                'position': constants.POSITIONS[real_player['pos']],
+                'trend': real_player['tfhmvt']
+            })
 
         result = result + taken_players
 
@@ -66,8 +68,8 @@ def get_free_players(taken_players):
             free_players.append({ 'first_name': real_player['fn'],
                                   'last_name': real_player['ln'],
                                   'team_id': real_player['tid'],
-                                  'points': real_player["tp"],
-                                  'average_points': real_player["ap"],
+                                  'points': real_player.get('tp'),
+                                  'average_points': real_player.get('ap'),
                                   'market_value': real_player['mv'],
                                   'buy_price': real_player['cv'],
                                   'player_id': real_player['i'],
