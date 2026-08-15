@@ -14,7 +14,7 @@ from utility.util import json_serialize_datetime
 def get_market_players():
     result = []
 
-    players = [player for player in manager.get(f"leagues/{manager.leagueid}/market")["it"] if not player["u"]]
+    players = [player for player in manager.get(f"/leagues/{manager.leagueid}/market")["it"] if not player["u"]]
 
     for player in tqdm(players, desc="Collecting players on market"):
         real_player = manager.get(f'/leagues/{manager.leagueid}/players/{player["pi"]}')
