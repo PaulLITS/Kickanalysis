@@ -39,11 +39,14 @@ jobs:
         git config user.name "github-actions[bot]"
         git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-        git add data/data/team_values.json
+        git add -f data/data/team_values.json
 
-        git diff --cached --quiet || git commit -m "Update team values"
-
-        git push
+        if git diff --cached --quiet; then
+          echo "No changes to team_values.json"
+        else
+          git commit -m "Update team values"
+          git push
+        fi
 
     - name: Copy result
       run: cp data/data/*.json frontend/src/data
