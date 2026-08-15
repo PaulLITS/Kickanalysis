@@ -60,10 +60,13 @@ def get_free_players(taken_players):
     free_players = []
 
     taken_player_ids = [x['player_id'] for x in taken_players]
-
+    players = []
+    for team in constants.TEAM_IDS:
+        for player in manager.get(f'/competitions/1/teams/{team}/teamprofile')["it"]: #change number for different league
+            players.append(player)
     
-    for player in manager.get(f'/competitions/1/players')["it"]: #change the number for other leagues then bundesliga
-        if player["pi"] not in taken_player_ids:
+    for player in players:
+        if player["i"] not in taken_player_ids:
             real_player = manager.get(f'/leagues/{manager.leagueid}/players/{player["pi"]}')
             free_players.append({ 'first_name': real_player['fn'],
                                   'last_name': real_player['ln'],
@@ -84,18 +87,19 @@ def get_players_mw_change():
     result = []
 
     players = []
-    for player in manager.get(f'/competitions/1/players')["it"]:
+    for team in constants.TEAM_IDS:
+        for player in manager.get(f'/competitions/1/teams/{team}/teamprofile')["it"]: #change number for different league
             players.append(player)
 
     for player in tqdm(players, desc="Collecting market value change of last three days for each player", miniters=2):
-        player_stats = manager.get(f'/leagues/{manager.leagueid}/players/{player["pi"]}')
+        player_stats = manager.get(f'/leagues/{manager.leagueid}/players/{player["i"]}')
 
         if player_stats['oui'] != "0":
             manager_name = player_stats['oui']
         else:
             manager_name = 'Computer'
 
-        market_values = manager.get(f'/leagues/{manager.leagueid}/players/8329/marketvalue/365')["it"]
+        market_values = manager.get(f'/leagues/{manager.leagueid}/players/{player["i"]}/marketvalue/365')["it"]
         market_values.reverse()
 
         result.append({'player_id': player_stats['i'],
