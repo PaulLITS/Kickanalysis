@@ -48,24 +48,23 @@ def calculate_team_value_per_match_day():
         result = {}
 
     current_match_day = manager.league_current_matchday("min")
-    if not current_match_day in result:
-        for user in tqdm(
-            manager.users,
-            desc="Collecting team values for current match day"
-        ):
-            manager_stats = manager.get(
-                f"/leagues/{manager.leagueid}/managers/{user['i']}/dashboard"
-            )
-
-            # Get current team value
-            current_team_value = manager_stats["tv"]
-
-            # Get existing manager data or create it
-            manager_values = result.setdefault(user["n"], {})
-
-            # Add current match day's value
-            manager_values[str(current_match_day)] = current_team_value
-
-        with open("./data/team_values.json", "w") as f:
-            json.dump(result, f, indent=2)
     
+    for user in tqdm(
+        manager.users,
+        desc="Collecting team values for current match day"
+    ):
+        manager_stats = manager.get(
+            f"/leagues/{manager.leagueid}/managers/{user['i']}/dashboard"
+        )
+
+        # Get current team value
+        current_team_value = manager_stats["tv"]
+
+        # Get existing manager data or create it
+        manager_values = result.setdefault(user["n"], {})
+
+        # Add current match day's value
+        manager_values[str(current_match_day)] = current_team_value
+
+    with open("./data/team_values.json", "w") as f:
+        json.dump(result, f, indent=2)
