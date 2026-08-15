@@ -60,7 +60,7 @@ def get_free_players(taken_players):
     taken_player_ids = [x['player_id'] for x in taken_players]
 
     
-    for player in manager.get(f'/competitions/1/players')["it"]: #change the number for other leagues then bundesliga
+    for player in manager.get(f'/competitions/2/players')["it"]: #change the number for other leagues then bundesliga
         if player["pi"] not in taken_player_ids:
             real_player = manager.get(f'/leagues/{manager.leagueid}/players/{player["pi"]}')
             free_players.append({ 'first_name': real_player['fn'],

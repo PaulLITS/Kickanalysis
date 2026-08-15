@@ -63,8 +63,8 @@ class ApiManager:
             if self.league is None:
                 raise Exception(f'League "{options.league}" not found.')
         else:
-            self.league = leagues[0]
-            self.leagueid = leagues[0]["id"]
+            self.league = leagues[1]
+            self.leagueid = leagues[1]["id"]
 
         self.cache = {}
         self.throttle = 0.01
@@ -161,7 +161,7 @@ class ApiManager:
     def league_current_matchday(self,mode=None):
         response = self.get("/competitions/1/matchdays")
 
-        now = datetime(2026, 10, 24, 20, 30, tzinfo=TIMEZONE_DE)
+        now = datetime.now(TIMEZONE_DE)
 
         occurred_days = []
 
