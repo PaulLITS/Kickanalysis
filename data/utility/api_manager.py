@@ -63,8 +63,8 @@ class ApiManager:
             if self.league is None:
                 raise Exception(f'League "{options.league}" not found.')
         else:
-            self.league = leagues[1]
-            self.leagueid = leagues[1]["id"]
+            self.league = leagues[0]
+            self.leagueid = leagues[0]["id"]
 
         self.cache = {}
         self.throttle = 0.01
