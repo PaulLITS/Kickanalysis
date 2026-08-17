@@ -48,9 +48,9 @@ def calculate_team_value_per_match_day():
         result = {}
 
     current_match_day = manager.league_current_matchday("min")
-    if not result or not all(
+    if (not result or not all(
     str(current_match_day) in manager_data
-    for manager_data in result.values()):
+    for manager_data in result.values())) and current_match_day != None:
         for user in tqdm(
             manager.users,
             desc="Collecting team values for current match day"

@@ -123,8 +123,9 @@ def get_matchday_elevens():
         result = {}
 
     current_match_day = manager.league_current_matchday("min")
-    if not result or not all(str(current_match_day) in manager_data 
-                             for manager_data in result.values()):
+    if (not result or not all(str(current_match_day) in manager_data
+        for manager_data in result.values())) and current_match_day != None:
+        
         for user in tqdm(
             manager.users,
             desc="Collecting teams for each Manager"
