@@ -6,7 +6,7 @@ import configargparse
 from dateutil.tz import tzlocal
 
 from processing.market import get_market_players
-from processing.players import get_players_mw_change
+from processing.players import get_players_mw_change,get_matchday_elevens()
 from processing.players import get_taken_players
 from processing.revenue import calculate_team_value_per_match_day
 from processing.turnovers import get_turnovers
@@ -32,7 +32,8 @@ def main():
     get_players_mw_change()
     calculate_team_value_per_match_day()
     get_market_players()
-
+    get_matchday_elevens()
+    
     # Timestamp for frontend
     # TODO: Possible to use file creation timestamp in frontend, so that this can be removed?
     with open('./data/timestamp.json', 'w') as f:
