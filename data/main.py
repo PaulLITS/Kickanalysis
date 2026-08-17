@@ -6,7 +6,7 @@ import configargparse
 from dateutil.tz import tzlocal
 
 from processing.market import get_market_players
-from processing.players import get_players_mw_change,get_matchday_elevens()
+from processing.players import get_players_mw_change,get_matchday_elevens
 from processing.players import get_taken_players
 from processing.revenue import calculate_team_value_per_match_day
 from processing.turnovers import get_turnovers
