@@ -88,3 +88,15 @@ MATCH_DAYS = {
     33: datetime(2027, 5, 15, 15, 30, tzinfo=TIMEZONE_DE),
     34: datetime(2027, 5, 22, 15, 30, tzinfo=TIMEZONE_DE),
 }
+
+
+k_codes = {
+    1: "Goal/elfer",
+    2: "Eigentor",
+    3: "assist",
+    4: "Gelbe karte",
+    5: "gelbrote Karte",
+    6: "Rote karte",
+    8: "eingewechselt",
+    9: "ausgeweckselt",
+}

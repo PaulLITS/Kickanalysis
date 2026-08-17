@@ -113,3 +113,34 @@ def get_players_mw_change():
 
     with open('./data/mw_changes.json', 'w') as f:
         f.writelines(json.dumps(result))
+
+
+def get_matchday_elevens():
+    try:
+        with open("./data/matchday_teams.json", "r") as f:
+            result = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        result = {}
+
+    current_match_day = manager.league_current_matchday("min")
+    if not result or not all(str(current_match_day) in manager_data 
+                             for manager_data in result.values()):
+        for user in tqdm(
+            manager.users,
+            desc="Collecting teams for each Manager"
+        ):
+            manager_squad = manager.get(
+                f"/leagues/{manager.leagueid}/managers/{user['i']}/squad"
+            )
+
+            # Get current team value
+            current_matchday_team = [player["pi"] for player in manager_squad["it"] if "lo" in player]
+
+            # Get existing manager data or create it
+            manager_teams = result.setdefault(user["i"], {})
+
+            # Add current match day's value
+            manager_teams[str(current_match_day)] = current_matchday_team
+
+    with open("./data/matchday_teams.json", "w") as f:
+        json.dump(result, f, indent=2)
