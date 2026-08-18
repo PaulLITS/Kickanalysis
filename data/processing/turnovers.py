@@ -16,7 +16,7 @@ def get_turnovers():
 
         for buy in manager.get_transfers_raw(user['i']):
             if parser.parse(buy['dt']) < manager.start:
-                continue
+                break
 
             transfer_type = 'buy' if buy['tty'] == 1 else 'sell'
 

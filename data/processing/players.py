@@ -61,7 +61,7 @@ def get_free_players(taken_players):
 
     taken_player_ids = [x['player_id'] for x in taken_players]
     players = []
-    for team in tqdm(constants.TEAM_IDS, desc=f"Getting free players from {constants.TEAM_NAMES["team"]}"):
+    for team in tqdm(constants.TEAM_IDS, desc=f"Getting free players from {constants.TEAM_NAMES[f"{team}"]}"):
         for player in manager.get(f'/competitions/1/teams/{team}/teamprofile')["it"]: #change number for different league
             players.append(player)
     
