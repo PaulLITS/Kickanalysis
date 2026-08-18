@@ -77,7 +77,8 @@ def calculate_daily_budget():
     # Load existing revenue data
     with open("./data/revenue_sum.json", "r", encoding="utf-8") as f:
         revenue_data = json.load(f)
-
+    with open("./data/budget_sum.json", "w", encoding="utf-8") as s:
+        Budget_data = json.load(s)
     current_day = datetime.now().strftime("%Y-%m-%d")
 
     for user in tqdm(manager.users, desc="Calculating budget for every Manager"):
@@ -90,18 +91,14 @@ def calculate_daily_budget():
         ) + 150000000 + 100000*(days_since(manager.start)+1)
 
         # user should already exist in revenue_sum.json
-        if user["n"] not in revenue_data:
-            revenue_data[user["n"]] = []
+        if user["n"] not in Budget_data:
+            Budget_data[user["n"]] = []
 
         # Add MVGL to today's revenue
-        if revenue_data[user["n"]]:
-            revenue_data[user["n"]][-1][1] += total_mvgl
-
-        else:
-            revenue_data[user["n"]].append(
+        Budget_data[user["n"]].append(
                 [current_day, total_mvgl]
             )
 
     # Save updated data
     with open("./data/budget_sum.json", "w", encoding="utf-8") as f:
-        json.dump(revenue_data, f, indent=2, ensure_ascii=False)
+        json.dump(Budget_data, f, indent=2, ensure_ascii=False)

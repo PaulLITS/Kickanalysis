@@ -27,24 +27,24 @@ TIMEZONE_DE = pytz.timezone('Europe/Berlin')
 # 50 Heidenheim
 # 51 Holstein Kiel
 TEAM_NAMES = {
-    "2": "FC Bayern München",
-    "3": "Borussia Dortmund",
-    "4": "Eintracht Frankfurt",
-    "5": "SC Freiburg",
-    "6": "Hamburger SV",
-    "7": "Bayer 04 Leverkusen",
-    "8": "FC Schalke 04",
-    "9": "VfB Stuttgart",
-    "10": "SV Werder Bremen",
-    "13": "FC Augsburg",
-    "14": "TSG Hoffenheim",
-    "15": "Borussia Mönchengladbach",
-    "18": "1. FSV Mainz 05",
-    "28": "1. FC Köln",
-    "29": "SC Paderborn 07",
-    "40": "1. FC Union Berlin",
-    "43": "RB Leipzig",
-    "77": "SV Elversberg"
+    "2": "-----FC Bayern München----",
+    "3": "-----Borussia Dortmund----",
+    "4": "----Eintracht Frankfurt---",
+    "5": "--------SC Freiburg-------",
+    "6": "-------Hamburger SV-------",
+    "7": "----Bayer 04 Leverkusen---",
+    "8": "------FC Schalke 04-------",
+    "9": "------VfB Stuttgart-------",
+    "10": "-----SV Werder Bremen-----",
+    "13": "-------FC Augsburg--------",
+    "14": "------TSG Hoffenheim------",
+    "15": "-Borussia Mönchengladbach-",
+    "18": "------1. FSV Mainz 05-----",
+    "28": "-------1. FC Köln---------",
+    "29": "-----SC Paderborn 07------",
+    "40": "----1. FC Union Berlin----",
+    "43": "--------RB Leipzig--------",
+    "77": "-------SV Elversberg------"
 }
 
 
