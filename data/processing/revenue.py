@@ -3,7 +3,7 @@ from datetime import datetime
 from collections import defaultdict
 import pandas as pd
 from tqdm import tqdm
-
+import os
 from utility.api_manager import manager
 from utility.constants import MATCH_DAYS
 from utility.constants import TIMEZONE_DE
@@ -77,8 +77,13 @@ def calculate_daily_budget():
     # Load existing revenue data
     with open("./data/revenue_sum.json", "r", encoding="utf-8") as f:
         revenue_data = json.load(f)
-    with open("./data/budget_sum.json", "w", encoding="utf-8") as s:
-        Budget_data = json.load(s)
+    
+    if os.path.exists("./data/budget_sum.json"):
+        with open("./data/budget_sum.json", "r", encoding="utf-8") as f:
+            Budget_data = json.load(f)
+    else:
+        Budget_data = {}
+
     current_day = datetime.now().strftime("%Y-%m-%d")
 
     for user in tqdm(manager.users, desc="Calculating budget for every Manager"):
@@ -88,7 +93,7 @@ def calculate_daily_budget():
         total_mvgl = sum(
             player.get("mvgl", 0)
             for player in Response["it"]
-        ) + 150000000 + 100000*(days_since(manager.start)+1)
+        ) + 150000000 + 100000*(days_since(manager.start)+1) + revenue_data[user["n"]][-1]
 
         # user should already exist in revenue_sum.json
         if user["n"] not in Budget_data:
