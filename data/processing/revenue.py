@@ -9,7 +9,7 @@ from utility.constants import MATCH_DAYS
 from utility.constants import TIMEZONE_DE
 
 def days_since(date):
-    return (datetime.now().date() - date).days
+    return (datetime.now().date() - date.date()).days
 
 def calculate_revenue_data_daily(turnovers):
     user_transfer_revenue = {user['n']: [] for user in manager.users}
