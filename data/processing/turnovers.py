@@ -50,7 +50,7 @@ def get_turnovers():
                 if sell_transfer['type'] == 'buy':
                     continue
 
-                if sell_transfer['player_id'] == buy_transfer['player_id']:
+                if sell_transfer['player_id'] == buy_transfer['player_id'] and sell_transfer['user'] == buy_transfer['trade_partner']:
                     turnovers.append((buy_transfer, sell_transfer))
                     break
 
@@ -61,9 +61,10 @@ def get_turnovers():
 
             if transfer not in [turnover[1] for turnover in turnovers]:
                 
+                
                 player_history = manager.get(f"/leagues/{manager.leagueid}/players/{transfer['player_id']}/transferHistory")["it"]
-                player_history.reverse()
-                og_money = None
+                player_history
+                
                 for event in player_history:
                     if transfer['user'] == event.get('unm') and event['t'] == 0:
                         og_money = event['trp']
