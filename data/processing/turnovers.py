@@ -69,6 +69,14 @@ def get_turnovers():
                         og_money = event['trp']
                         break
                 
+                if og_money is None:
+                    print(
+                        f"Could not find original transfer price for "
+                        f"{transfer['user']} / {transfer['player_id']}"
+                    )
+                    continue
+                
+                
                 date = manager.start
                 buy_transfer = {'date': date,
                                 'first_name': transfer['first_name'],
