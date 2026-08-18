@@ -18,7 +18,7 @@ def get_turnovers():
             if parser.parse(buy['dt']) < manager.start:
                 break
 
-            transfer_type = 'buy' if buy['tty'] == 1 else 'sell'
+            transfer_type = 'buy' if buy['tty'] == 2 else 'sell'
 
             if 'othnm' in buy:
                 trade_partner = buy['othnm']

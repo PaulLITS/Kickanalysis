@@ -25,7 +25,7 @@ def get_taken_players():
 
             # Get date and value of newest buy transfer for that player
             for transfer in transfers:
-                if transfer['tty'] != 2 or transfer['pi'] != player["pi"]:
+                if transfer['tty'] != 1 or transfer['pi'] != player["pi"]:
                     continue
 
                 buy_value = transfer['trp']
