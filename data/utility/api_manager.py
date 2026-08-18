@@ -87,7 +87,8 @@ class ApiManager:
                       if user["n"] not in options.ignore ]
         self.start = TIMEZONE_DE.localize(datetime.strptime(options.start, '%d.%m.%Y'))
     
-    
+    def get_bonus(self):
+        self.get("/bonus/collect")
     
     def _auth_cookie(self):
         return "kkstrauth={}".format(self.token)
