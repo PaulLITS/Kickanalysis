@@ -4,7 +4,7 @@ import Paper from '@mui/material/Paper'
 
 import { nivoDarkTheme, nivoLightTheme } from './SharedConstants'
 
-import data from '../data/team_values.json'
+import data from '../data/budget_sum.json'
 
 function TeamValueLineChart(props) {
     var processedData = []
