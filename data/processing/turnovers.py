@@ -65,7 +65,7 @@ def get_turnovers():
                 player_history.reverse()
                 
                 for event in player_history:
-                    if transfer['user'] == event['unm'] and event['t'] == 0:
+                    if transfer['user'] == event.get('unm') and event['t'] == 0:
                         og_money = event['trp']
                         break
                 
