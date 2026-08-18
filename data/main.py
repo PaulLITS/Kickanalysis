@@ -8,7 +8,7 @@ from dateutil.tz import tzlocal
 from processing.market import get_market_players
 from processing.players import get_players_mw_change,get_matchday_elevens
 from processing.players import get_taken_players
-from processing.revenue import calculate_team_value_per_day
+from processing.revenue import calculate_team_value_per_match_day,calculate_daily_budget
 from processing.turnovers import get_turnovers
 from utility.api_manager import manager
 
@@ -30,9 +30,10 @@ def main():
     get_turnovers()
     get_taken_players()
     get_players_mw_change()
-    calculate_team_value_per_day()
+    calculate_team_value_per_match_day()
     get_market_players()
     get_matchday_elevens()
+    calculate_daily_budget()
     
     # Timestamp for frontend
     # TODO: Possible to use file creation timestamp in frontend, so that this can be removed?

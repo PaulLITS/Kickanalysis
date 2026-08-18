@@ -42,17 +42,16 @@ def calculate_revenue_data_daily(turnovers):
         f.writelines(json.dumps(data))
 
         
-def calculate_team_value_per_day():
+def calculate_team_value_per_match_day():
     try:
         with open("./data/team_values.json", "r") as f:
             result = json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
         result = {}
-
-    current_day = datetime.now().date()
-    if not result or not all(
-    str(current_day) in manager_data
-    for manager_data in result.values()):
+    current_match_day = manager.league_current_matchday("min")
+    if (not result or not all(
+    str(current_match_day) in manager_data
+    for manager_data in result.values())) and current_match_day != None:
         for user in tqdm(
             manager.users,
             desc="Collecting team values for current match day"
@@ -68,20 +67,20 @@ def calculate_team_value_per_day():
             manager_values = result.setdefault(user["i"], {})
 
             # Add current match day's value
-            manager_values[str(current_day)] = current_team_value
+            manager_values[str(current_match_day)] = current_team_value
 
     with open("./data/team_values.json", "w") as f:
         json.dump(result, f, indent=2)
 
 
-def add_mvgl_to_revenue_sum():
+def calculate_daily_budget():
     # Load existing revenue data
     with open("./data/revenue_sum.json", "r", encoding="utf-8") as f:
         revenue_data = json.load(f)
 
     current_day = datetime.now().strftime("%Y-%m-%d")
 
-    for user in manager.users:
+    for user in tqdm(manager.users, desc="Calculating budget for every Manager"):
     
         Response = manager.get(f'/leagues/{manager.leagueid}/managers/{user["i"]}/squad')
         
