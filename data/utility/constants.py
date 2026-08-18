@@ -26,7 +26,7 @@ TIMEZONE_DE = pytz.timezone('Europe/Berlin')
 # 43 Leipzig
 # 50 Heidenheim
 # 51 Holstein Kiel
-"""TEAM_NAMES = {
+TEAM_NAMES = {
     "2": "FC Bayern München",
     "3": "Borussia Dortmund",
     "4": "Eintracht Frankfurt",
@@ -45,7 +45,7 @@ TIMEZONE_DE = pytz.timezone('Europe/Berlin')
     "40": "1. FC Union Berlin",
     "43": "RB Leipzig",
     "77": "SV Elversberg"
-}"""
+}
 
 
 TEAM_IDS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 13, 14, 15, 18, 28, 29, 40, 43, 77]
