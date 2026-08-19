@@ -63,9 +63,11 @@ def get_turnovers():
                 
                 
                 player_history = manager.get(f"/leagues/{manager.leagueid}/players/{transfer['player_id']}/transferHistory")["it"]
-                print(player_history)
+                
                 og_money = None
                 for event in player_history:
+                    if transfer['last_name'] == "Davies":
+                        print(f"{manager.start} / {parser.parse(event.get('dt'))} / {event['t']}")
                     if manager.start == parser.parse(event.get('dt')) and event['t'] == 0:
                         og_money = event['trp']
                         print("found a player")
