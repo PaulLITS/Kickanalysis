@@ -88,12 +88,9 @@ def calculate_daily_budget():
 
     for user in tqdm(manager.users, desc="Calculating budget for every Manager"):
     
-        Response = manager.get(f'/leagues/{manager.leagueid}/managers/{user["i"]}/squad')
+        
         dashboard = manager.get(f"/leagues/{manager.leagueid}/managers/{user["i"]}/dashboard")
-        total_mvgl = sum(
-            player.get("mvgl", 0)
-            for player in Response["it"]
-        ) + 150000000 + dashboard["tp"]*1000 + 100000*(days_since(manager.start)+1-days_since(TIMEZONE_DE.localize(datetime.strptime("16.05.2026", "%d.%m.%Y")))) + revenue_data[user["n"]][-1][1]
+        total_mvgl = 150000000 + dashboard["tp"]*1000 + 100000*(days_since(manager.start)+1-days_since(TIMEZONE_DE.localize(datetime.strptime("16.05.2026", "%d.%m.%Y")))) + revenue_data[user["n"]][-1][1]
 
         # user should already exist in revenue_sum.json
         if user["n"] not in Budget_data:
