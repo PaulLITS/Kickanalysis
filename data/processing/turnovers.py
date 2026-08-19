@@ -1,5 +1,5 @@
 import json
-import datetime
+from datetime import date, timedelta
 from dateutil import parser
 
 from processing.revenue import calculate_revenue_data_daily
@@ -7,6 +7,16 @@ from utility.api_manager import manager
 from utility.util import json_serialize_datetime
 from tqdm import tqdm
 
+EPOCH = date(1970, 1, 1)
+
+def get_mv_on_date(data, target_date):
+    for entry in data:
+        entry_date = EPOCH + timedelta(days=entry["dt"])
+
+        if entry_date == target_date:
+            return entry["mv"]
+
+    return None
 
 def get_turnovers():
     result = []
@@ -63,14 +73,12 @@ def get_turnovers():
                 
                 
                 player_history = manager.get(f"/leagues/{manager.leagueid}/players/{transfer['player_id']}/transferHistory")["it"]
-                
+                response = manager.get(f"/leagues/{manager.leagueid}/players/{transfer['player_id']}/marketvalue/365")
+                mv = get_mv_on_date(response,manager.start.date())
                 og_money = None
                 for event in player_history:
                     if manager.start.date() == parser.parse(event.get('dt')).date() and event['t'] == 0:
-                        og_money = event['trp']
-                        print(f"found a player {og_money}")
-                        print(f"{event}")
-                        print(f"{transfer}")
+                        og_money = mv
                         break
                 
                 if og_money is None:
