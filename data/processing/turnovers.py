@@ -68,12 +68,13 @@ def get_turnovers():
                 for event in player_history:
                     if manager.start == parser.parse(event.get('dt')) and event['t'] == 0:
                         og_money = event['trp']
+                        print("found a player")
                         break
                 
                 if og_money is None:
                     print(
                         f"Could not find original transfer price for "
-                        f"{transfer['user']} / {transfer['player_id']}"
+                        f"{transfer['user']} / {transfer['last_name']}"
                     )
                     continue
                 
