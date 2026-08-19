@@ -68,7 +68,7 @@ def get_turnovers():
                 for event in player_history:
                     if transfer['last_name'] == "Davies":
                         print(f"{manager.start} / {parser.parse(event.get('dt'))} / {event['t']}")
-                    if manager.start == parser.parse(event.get('dt')) and event['t'] == 0:
+                    if manager.start.date() == parser.parse(event.get('dt')).date() and event['t'] == 0:
                         og_money = event['trp']
                         print("found a player")
                         break
