@@ -70,6 +70,7 @@ def get_turnovers():
                         og_money = event['trp']
                         print(f"found a player {og_money}")
                         print(f"{event}")
+                        print(f"{transfer}")
                         break
                 
                 if og_money is None:
