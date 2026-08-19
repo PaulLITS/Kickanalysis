@@ -69,6 +69,7 @@ def get_turnovers():
                     if manager.start.date() == parser.parse(event.get('dt')).date() and event['t'] == 0:
                         og_money = event['trp']
                         print(f"found a player {og_money}")
+                        print(f"{event}")
                         break
                 
                 if og_money is None:
