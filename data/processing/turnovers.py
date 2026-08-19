@@ -16,7 +16,6 @@ def get_turnovers():
 
         for buy in manager.get_transfers_raw(user['i']):
             if parser.parse(buy['dt']) < manager.start:
-                print("too old")
                 continue
 
             transfer_type = 'buy' if buy['tty'] == 1 else 'sell'
@@ -51,7 +50,7 @@ def get_turnovers():
                 if sell_transfer['type'] == 'buy':
                     continue
 
-                if sell_transfer['player_id'] == buy_transfer['player_id'] :# and sell_transfer['user'] == buy_transfer['trade_partner']:
+                if sell_transfer['player_id'] == buy_transfer['player_id']:
                     turnovers.append((buy_transfer, sell_transfer))
                     break
                     
@@ -64,7 +63,7 @@ def get_turnovers():
                 
                 
                 player_history = manager.get(f"/leagues/{manager.leagueid}/players/{transfer['player_id']}/transferHistory")["it"]
-                
+                print(player_history)
                 og_money = None
                 for event in player_history:
                     if manager.start == parser.parse(event.get('dt')) and event['t'] == 0:
