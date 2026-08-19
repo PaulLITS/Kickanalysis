@@ -73,7 +73,7 @@ def get_turnovers():
                 
                 
                 player_history = manager.get(f"/leagues/{manager.leagueid}/players/{transfer['player_id']}/transferHistory")["it"]
-                response = manager.get(f"/leagues/{manager.leagueid}/players/{transfer['player_id']}/marketvalue/365")
+                response = manager.get(f"/leagues/{manager.leagueid}/players/{transfer['player_id']}/marketvalue/365")["it"]
                 mv = get_mv_on_date(response,manager.start.date())
                 og_money = None
                 for event in player_history:
