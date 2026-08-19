@@ -10,6 +10,7 @@ from processing.players import get_players_mw_change,get_matchday_elevens
 from processing.players import get_taken_players
 from processing.revenue import calculate_team_value_per_match_day,calculate_daily_budget
 from processing.turnovers import get_turnovers
+from processing.events import calculate_events_for_each_manager
 from utility.api_manager import manager
 
 p = configargparse.ArgParser(default_config_files=['settings.conf'])
@@ -34,7 +35,7 @@ def main():
     get_market_players()
     get_matchday_elevens()
     calculate_daily_budget()
-    
+    calculate_events_for_each_manager()
     # Timestamp for frontend
     # TODO: Possible to use file creation timestamp in frontend, so that this can be removed?
     with open('./data/timestamp.json', 'w') as f:
