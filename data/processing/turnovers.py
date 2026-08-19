@@ -79,6 +79,7 @@ def get_turnovers():
                 for event in player_history:
                     if manager.start.date() == parser.parse(event.get('dt')).date() and event['t'] == 0:
                         og_money = mv
+                        print(f"found player {transfer['last_name']}/{og_money}")
                         break
                 
                 if og_money is None:
