@@ -111,8 +111,8 @@ def calculate_daily_gain():
     dt = datetime.now()
     
     if os.path.exists("./data/gain.json"):
-                    with open("./data/gain.json", "r", encoding="utf-8") as f:
-                        gain_data = json.load(f)
+        with open("./data/gain.json", "r", encoding="utf-8") as f:
+            gain_data = json.load(f)
     else:
         gain_data = {}
         
@@ -127,5 +127,5 @@ def calculate_daily_gain():
             items = manager.get(f"https://api.kickbase.com/v4/leagues/{manager.leagueid}/managers/{user["i"]}/squad")["it"]
             gain_data[user["n"]][current_day] = sum(item.get("tfhmvt", 0) for item in items)
         
-        with open("./data/gain.json", "w", encoding="utf-8") as f:
-                json.dump(gain_data, f, indent=2, ensure_ascii=False,)
+    with open("./data/gain.json", "w", encoding="utf-8") as f:
+        json.dump(gain_data, f, indent=2, ensure_ascii=False,)
