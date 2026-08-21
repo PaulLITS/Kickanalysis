@@ -109,13 +109,15 @@ def calculate_daily_budget():
        
 def calculate_daily_gain():
     dt = datetime.now()
+    
+    if os.path.exists("./data/gain.json"):
+                    with open("./data/gain.json", "r", encoding="utf-8") as f:
+                        gain_data = json.load(f)
+    else:
+        gain_data = {}
+        
     if dt.hour >= 22 and dt.hour < 24:
-        if os.path.exists("./data/gain.json"):
-                with open("./data/gain.json", "r", encoding="utf-8") as f:
-                    gain_data = json.load(f)
-        else:
-            gain_data = {}
-            
+        
         current_day = datetime.now().strftime("%Y-%m-%d")
         
         for user in tqdm(
