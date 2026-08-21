@@ -99,7 +99,7 @@ def get_players_mw_change():
         player_stats = manager.get(f'/leagues/{manager.leagueid}/players/{player["i"]}')
 
         if player_stats['oui'] != "0":
-            manager_name = player_stats['oui']
+            manager_name = manager.get(f"/leagues/{manager.leagueid}/managers/{player_stats['oui']}/dashboard")['unm']
         else:
             manager_name = 'Computer'
 

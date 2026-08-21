@@ -93,9 +93,9 @@ def calculate_daily_budget():
         total_mvgl = sum(
             player.get("mvgl", 0)
             for player in Response["it"]
-        ) + 150000000 + (dashboard["tp"]*1000) + 100000*(days_since(manager.start)+1-days_since(TIMEZONE_DE.localize(datetime.strptime("16.05.2026", "%d.%m.%Y")))) + revenue_data[user["n"]][-1][1]
+        ) + 150000000 + (dashboard["tp"]*1000) + 100000*(days_since(manager.start)+1) + revenue_data[user["n"]][-1][1]
 
-        # user should already exist in revenue_sum.json
+        # user should already exist in revenue_sum.json 
         if user["n"] not in Budget_data:
             Budget_data[user["n"]] = {}
 
