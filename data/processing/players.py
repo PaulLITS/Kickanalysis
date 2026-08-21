@@ -6,7 +6,7 @@ from tqdm import tqdm
 from utility import constants
 from utility.api_manager import manager
 from utility.util import json_serialize_datetime
-from turnovers import get_mv_on_date
+from processing.turnovers import get_mv_on_date
 
 def get_taken_players():
     result = []
