@@ -92,7 +92,7 @@ function App() {
                 <TeamValueLineChart darkModeEnabled={darkModeEnabled} />
               </Paper>
               <Paper sx={{ marginTop: 2 }} elevation={5}>
-                <Typography variant="h4" sx={{ padding: 1 }}>Teamwert</Typography>
+                <Typography variant="h4" sx={{ padding: 1 }}>Tageszuwachs</Typography>
                 <DailyGainLineChart darkModeEnabled={darkModeEnabled} />
               </Paper>
             </TabPanel>

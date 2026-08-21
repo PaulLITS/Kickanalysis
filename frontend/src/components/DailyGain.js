@@ -73,4 +73,4 @@ function DailyGainLineChart(props) {
     )
 }
 
-export default TeamValueLineChart
+export default DailyGainLineChart
