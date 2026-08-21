@@ -124,7 +124,7 @@ def calculate_daily_gain():
                     manager.users,
                     desc="Collecting daily gain for each user"
                 ):    
-            items = manager.get(f"https://api.kickbase.com/v4/leagues/{manager.leagueid}/managers/{user["i"]}/squad")["it"]
+            items = manager.get(f"/leagues/{manager.leagueid}/managers/{user["i"]}/squad")["it"]
             gain_data[user["n"]][current_day] = sum(item.get("tfhmvt", 0) for item in items)
         
     with open("./data/gain.json", "w", encoding="utf-8") as f:
