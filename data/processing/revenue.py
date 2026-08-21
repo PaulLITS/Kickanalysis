@@ -123,7 +123,8 @@ def calculate_daily_gain():
         for user in tqdm(
                     manager.users,
                     desc="Collecting daily gain for each user"
-                ):    
+                ): 
+            gain_data.setdefault(user["n"], {})   
             items = manager.get(f"/leagues/{manager.leagueid}/managers/{user["i"]}/squad")["it"]
             gain_data[user["n"]][current_day] = sum(item.get("tfhmvt", 0) for item in items)
         
