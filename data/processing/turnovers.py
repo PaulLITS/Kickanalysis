@@ -77,6 +77,7 @@ def get_turnovers():
                 mv = get_mv_on_date(response,manager.start.date())
                 og_money = None
                 for event in player_history:
+                    print(f"{manager.start.date()}!= {parser.parse(event.get('dt')).date()}")
                     if manager.start.date() == parser.parse(event.get('dt')).date() and event['t'] == 0:
                         og_money = mv
                         
