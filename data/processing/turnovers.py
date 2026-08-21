@@ -10,20 +10,10 @@ from tqdm import tqdm
 EPOCH = date(1970, 1, 1)
 
 def get_mv_on_date(data, target_date):
-    print(f"TARGET: {target_date} ({type(target_date)})")
-
     for entry in data:
-        entry_date = EPOCH + timedelta(days=entry["dt"])
-
-        print(
-            f"DT: {entry['dt']} | "
-            f"ENTRY: {entry_date} ({type(entry_date)}) | "
-            f"TARGET: {target_date} | "
-            f"EQUAL: {entry_date == target_date}"
-        )
+        entry_date = EPOCH + timedelta(days=entry["dt"]+ 1)
 
         if entry_date == target_date:
-            print(f"FOUND: {entry['mv']}")
             return entry["mv"]
 
     return None
@@ -88,7 +78,6 @@ def get_turnovers():
                 
                 og_money = None
                 for event in player_history:
-                    print(f"{manager.start.date()}!= {parser.parse(event.get('dt')).date()}/{event.get('t')}")
                     if manager.start.date() == parser.parse(event.get('dt')).date() and event['t'] == 0:
                         og_money = mv
                         
