@@ -108,7 +108,7 @@ def calculate_daily_budget():
  
        
 def calculate_daily_gain():
-    dt = datetime.now()
+    dt = datetime.now(TIMEZONE_DE)
     print("we are here")
     if os.path.exists("./data/gain.json"):
         with open("./data/gain.json", "r", encoding="utf-8") as f:
