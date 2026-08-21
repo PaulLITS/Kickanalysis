@@ -86,6 +86,7 @@ def get_turnovers():
                     print(
                         f"Could not find original transfer price for "
                         f"{transfer['user']} / {transfer['last_name']}"
+                        f"{player_history}/{response}/{mv}"
                     )
                     continue
                 
