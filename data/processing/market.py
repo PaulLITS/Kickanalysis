@@ -21,7 +21,7 @@ def get_market_players():
         expiration_time = (datetime.now(timezone('Europe/Berlin')) + timedelta(seconds=int(player["exs"])))
         result.append({'first_name': real_player['fn'],
                        'last_name': real_player['ln'],
-                       'market_value': real_player['mv'],
+                       'price': real_player['mv'],
                        'expiration': expiration_time,
                        'team_id': real_player['tid'],
                        'position': constants.POSITIONS[real_player['pos']],

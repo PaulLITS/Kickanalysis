@@ -105,3 +105,24 @@ def calculate_daily_budget():
     # Save updated data
     with open("./data/budget_sum.json", "w", encoding="utf-8") as f:
         json.dump(Budget_data, f, indent=2, ensure_ascii=False,)
+ 
+       
+def calculate_daily_gain():
+    if datetime.hour >= 22 and datetime.hour < 24:
+        if os.path.exists("./data/gain.json"):
+                with open("./data/gain.json", "r", encoding="utf-8") as f:
+                    gain_data = json.load(f)
+        else:
+            gain_data = {}
+            
+        current_day = datetime.now().strftime("%Y-%m-%d")
+        
+        for user in tqdm(
+                    manager.users,
+                    desc="Collecting daily gain for each user"
+                ):    
+            items = manager.get(f"https://api.kickbase.com/v4/leagues/{manager.leagueid}/managers/{user["i"]}/squad")["it"]
+            gain_data[user["n"]][current_day] = sum(item.get("tfhmvt", 0) for item in items)
+        
+        with open("./data/gain.json", "w", encoding="utf-8") as f:
+                json.dump(gain_data, f, indent=2, ensure_ascii=False,)

@@ -33,7 +33,7 @@ function TeamValueLineChart(props) {
                     minimumFractionDigits: 0,
                 })} €`}
                 axisLeft={{
-                    legend: 'Teamwert',
+                    legend: 'Budget',
                     legendOffset: 0,
                     format: value => `${new Intl.NumberFormat('de-DE', {
                         maximumFractionDigits: 0,
@@ -41,7 +41,7 @@ function TeamValueLineChart(props) {
                         compactDisplay: "short"
                     }).format(value)} €`
                 }}
-                axisBottom={{ legend: 'Spieltag' }}
+                axisBottom={{ legend: 'Tag' }}
                 colors={{ scheme: 'category10' }}
                 curve={'catmullRom'}
                 useMesh={true}

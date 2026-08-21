@@ -21,6 +21,7 @@ import TakenPlayersTable from "./components/TakenPlayersTable"
 import TeamValueLineChart from './components/TeamValueLineChart'
 import TransferRevenueLineChart from './components/TransferRevenueLineChart'
 import TurnoversTable from "./components/TurnoversTable"
+import DailyGainLineChart from "./components/DailyGain"
 import timestamp from './data/timestamp.json'
 
 const darkTheme = createTheme({ palette: { mode: 'dark' } })
@@ -89,6 +90,10 @@ function App() {
               <Paper sx={{ marginTop: 2 }} elevation={5}>
                 <Typography variant="h4" sx={{ padding: 1 }}>Teamwert</Typography>
                 <TeamValueLineChart darkModeEnabled={darkModeEnabled} />
+              </Paper>
+              <Paper sx={{ marginTop: 2 }} elevation={5}>
+                <Typography variant="h4" sx={{ padding: 1 }}>Teamwert</Typography>
+                <DailyGainLineChart darkModeEnabled={darkModeEnabled} />
               </Paper>
             </TabPanel>
             <TabPanel sx={{ padding: 0 }} value="3">

@@ -6,7 +6,7 @@ from tqdm import tqdm
 from utility import constants
 from utility.api_manager import manager
 from utility.util import json_serialize_datetime
-
+from turnovers import get_mv_on_date
 
 def get_taken_players():
     result = []
@@ -20,14 +20,17 @@ def get_taken_players():
 
         for player in manager.league_user_players(user['i']):
             # Default values in case the player got randomly assigned on league join
-            buy_value = 0
+            
+            response = manager.get(f"/leagues/{manager.leagueid}/players/{player["pi"]}/marketvalue/365")["it"]
+            buy_value = get_mv_on_date(response,manager.start.date())
             bought_date = manager.start
 
             # Get date and value of newest buy transfer for that player
             for transfer in transfers:
                 if transfer['tty'] != 1 or transfer['pi'] != player["pi"]:
                     continue
-
+                if parser.parse(transfer.get('dt')).date() < manager.start.date():
+                    continue
                 buy_value = transfer['trp']
                 bought_date = parser.parse(transfer['dt'])
 
