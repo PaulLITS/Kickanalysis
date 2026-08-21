@@ -36,6 +36,7 @@ def main():
     get_matchday_elevens()
     calculate_daily_budget()
     calculate_daily_gain()
+    
     # Timestamp for frontend
     # TODO: Possible to use file creation timestamp in frontend, so that this can be removed?
     with open('./data/timestamp.json', 'w') as f:
