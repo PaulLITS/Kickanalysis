@@ -19,13 +19,13 @@ def get_market_players():
     for player in tqdm(players, desc="Collecting players on market"):
         real_player = manager.get(f'/leagues/{manager.leagueid}/players/{player["i"]}')
         expiration_time = (datetime.now(timezone('Europe/Berlin')) + timedelta(seconds=int(player["exs"])))
-        result.append({'first_name': real_player['fn'],
-                       'last_name': real_player['ln'],
-                       'price': real_player['mv'],
+        result.append({'first_name': real_player.get('fn'),
+                       'last_name': real_player.get('ln'),
+                       'price': real_player.get('mv'),
                        'expiration': expiration_time,
-                       'team_id': real_player['tid'],
-                       'position': constants.POSITIONS[real_player['pos']],
-                       'trend': real_player['tfhmvt']})
+                       'team_id': real_player.get('tid'),
+                       'position': constants.POSITIONS[real_player.get('pos')],
+                       'trend': real_player.get('tfhmvt')})
 
     with open('./data/market.json', 'w') as f:
         f.writelines(json.dumps(result, default=json_serialize_datetime))

@@ -115,7 +115,7 @@ def calculate_daily_gain():
             gain_data = json.load(f)
     else:
         gain_data = {}
-    print(str(dt.hour))    
+       
     if dt.hour >= 22 and dt.hour < 24:
         
         current_day = datetime.now().strftime("%Y-%m-%d")
