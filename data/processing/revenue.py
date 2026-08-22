@@ -84,7 +84,7 @@ def calculate_daily_budget():
     else:
         Budget_data = {}
 
-    current_day = datetime.now().strftime("%Y-%m-%d")
+    current_day = datetime.now(TIMEZONE_DE).strftime("%Y-%m-%d")
 
     for user in tqdm(manager.users, desc="Calculating budget for every Manager"):
     
