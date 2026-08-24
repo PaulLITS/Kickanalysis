@@ -27,7 +27,7 @@ def main():
     start = time.time()
 
     manager.init(options)
-    manager.get_bonus
+    manager.get_bonus()
     calculate_daily_gain()
     get_turnovers()
     get_taken_players()
