@@ -10,7 +10,7 @@ on:
   schedule:
     - cron: '10 22,8 * * *'
     - cron: '30 15,20 * * *'
-    
+
 permissions:
   contents: write
   
@@ -80,6 +80,14 @@ jobs:
           git push
         fi
         
+        git add -f data/data/events.json
+
+        if git diff --cached --quiet; then
+          echo "No changes to events.json"
+        else
+          git commit -m "Update matchday teams"
+          git push
+        fi
 
     - name: Copy result
       run: cp data/data/*.json frontend/src/data
