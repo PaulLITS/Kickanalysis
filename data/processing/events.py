@@ -9,8 +9,8 @@ def calculate_events_for_each_manager():
             result = json.load(f)
     
     if os.path.exists("./data/events.json"):
-            with open("./data/events.json", "r", encoding="utf-8") as f:
-                events_data = json.load(f)
+            with open("./data/events.json", "r", encoding="utf-8") as I:
+                events_data = json.load(I)
             new = False
     else:
         new = True
@@ -35,7 +35,7 @@ def calculate_events_for_each_manager():
                 for x in events:
                     events_data[user["n"]][x] += 1
                     
-    with open("./data/events.json", "r", encoding="utf-8") as f:
+    with open("./data/events.json", "w", encoding="utf-8") as f:
         json.dump(events_data, f, indent=2, ensure_ascii=False,)
                 
                 
