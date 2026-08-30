@@ -96,7 +96,9 @@ k_codes = {
     3: "assist",
     4: "Gelbe karte",
     5: "gelbrote Karte",
+    7: "Elver Gehalten",
     6: "Rote karte",
     8: "eingewechselt",
     9: "ausgeweckselt",
+    25:"TW zu Null"
 }
