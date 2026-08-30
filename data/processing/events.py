@@ -20,12 +20,13 @@ def calculate_events_for_each_manager():
         
         if new:
             events_data[user["n"]] = {}
-        
+            events_data[user["n"]]["day"] = 0
         
             
-        if manager.league_current_matchday(min) <= len(result[user["i"]]):
-            for player in result[user["i"]][str(manager.league_current_matchday(min))]:#-1 
-                performance = manager.get(f"/leagues/{manager.leagueid}/players/{player}/performance")["it"][-1]["ph"][manager.league_current_matchday(min)]#-1
+        if (manager.league_current_matchday(min) <= len(result[user["i"]])):# -1 and manager.league_current_matchday(min)-1 > events_data[user["n"]]["day"]:
+            events_data[user["n"]]["day"] += 1 
+            for player in result[user["i"]][str(manager.league_current_matchday(min))]:#-1
+                performance = manager.get(f"/leagues/{manager.leagueid}/players/{player}/performance")["it"][-1]["ph"][manager.league_current_matchday(min)-1]
                 
                 events = performance.get("k")
                 
@@ -33,8 +34,8 @@ def calculate_events_for_each_manager():
                     continue
                 
                 for x in events:
-                    events_data[user["n"]][x] += 1
-                    
+                    events_data[user["n"]][x] += 1           
+                  
     with open("./data/events.json", "w", encoding="utf-8") as f:
         json.dump(events_data, f, indent=2, ensure_ascii=False,)
                 
