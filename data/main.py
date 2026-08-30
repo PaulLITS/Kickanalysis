@@ -36,7 +36,7 @@ def main():
     get_market_players()
     get_matchday_elevens()
     calculate_daily_budget()
-    
+    calculate_events_for_each_manager()
     
     # Timestamp for frontend
     # TODO: Possible to use file creation timestamp in frontend, so that this can be removed?
