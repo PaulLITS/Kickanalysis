@@ -17,7 +17,7 @@ def calculate_events_for_each_manager():
         events_data = {}
         
     for user in manager.users:
-        
+        events_data[user["n"]]["day"] = 0
         if new:
             events_data[user["n"]] = {}
             events_data[user["n"]]["day"] = 0
