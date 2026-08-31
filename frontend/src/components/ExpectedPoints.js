@@ -63,22 +63,17 @@ function ExpectedPointsBarChart(props) {
                 enableLabel={false}
 
                 legends={[
-                    {
-                        dataFrom: 'keys',
-                        anchor: 'right',
-                        direction: 'column',
-                        translateX: 150,
-                        itemWidth: 130,
-                        itemHeight: 20,
-                        itemsSpacing: 4,
-                        symbolSize: 20,
-                        label: ({ id }) => {
-                            if (id === 'firstValue') return 'Points'
-                            if (id === 'secondValue') return 'Expected Points'
-                            return id
-                        }
-                    }
-                ]}
+    {
+        dataFrom: 'keys',
+        anchor: 'right',
+        direction: 'column',
+        translateX: 150,
+        itemWidth: 130,
+        itemHeight: 20,
+        itemsSpacing: 4,
+        symbolSize: 20
+    }
+]}
 
                 tooltip={({ id, value, indexValue, color }) => (
                     <Paper elevation={3} sx={{ padding: 1 }}>
