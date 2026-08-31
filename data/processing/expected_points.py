@@ -27,7 +27,7 @@ def calculate_expected_points_for_each_manager():
                 if minutes == 0 or avg_minutes == 0:
                     continue
                 else:
-                    expected_points[user["n"]][1] += avg_points * minutes/avg_minutes
+                    expected_points[user["n"]][1] += avg_points * float(minutes)/avg_minutes
                     expected_points[user["n"]][0] += points
                 
     with open("./data/expected_points.json", "w", encoding="utf-8") as f:
