@@ -11,6 +11,39 @@ function ExpectedPointsBarChart(props) {
     var processedData = []
 
     for (var user in data) {
+        processedData.push({
+            user: user,
+            value1: data[user][0],
+            value2: data[user][1]
+        })
+    }
+
+    return (
+        <div style={{ height: '30em' }}>
+            <ResponsiveBar
+                data={processedData}
+                keys={['value1', 'value2']}
+                indexBy="user"
+                groupMode="grouped"
+                margin={{ top: 10, right: 20, bottom: 60, left: 100 }}
+                colors={['#4dabf7', '#ff922b']}
+                yScale={{
+                    type: 'linear',
+                    min: 0,
+                    max: 'auto'
+                }}
+                enableLabel={false}
+            />
+        </div>
+    )
+}
+
+
+/*
+function ExpectedPointsBarChart(props) {
+    var processedData = []
+
+    for (var user in data) {
     processedData.push({
         user: user,
         expectedPoints: data[user][0],
@@ -97,6 +130,6 @@ function ExpectedPointsBarChart(props) {
         </div>
     )
 }
-
+*/
 
 export default ExpectedPointsBarChart
