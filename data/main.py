@@ -11,6 +11,7 @@ from processing.players import get_taken_players
 from processing.revenue import calculate_team_value_per_match_day,calculate_daily_budget,calculate_daily_gain
 from processing.turnovers import get_turnovers
 from processing.events import calculate_events_for_each_manager
+from processing.expected_points import calculate_expected_points_for_each_manager
 from utility.api_manager import manager
 
 p = configargparse.ArgParser(default_config_files=['settings.conf'])
@@ -28,6 +29,7 @@ def main():
 
     manager.init(options)
     manager.get_bonus()
+    calculate_expected_points_for_each_manager()
     calculate_events_for_each_manager() 
     calculate_daily_gain()
     get_turnovers()
