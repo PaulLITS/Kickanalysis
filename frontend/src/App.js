@@ -22,6 +22,7 @@ import TeamValueLineChart from './components/TeamValueLineChart'
 import TransferRevenueLineChart from './components/TransferRevenueLineChart'
 import TurnoversTable from "./components/TurnoversTable"
 import DailyGainLineChart from "./components/DailyGain"
+import ExpectedPointsBarChart from './components/ExpectedPoints'
 import timestamp from './data/timestamp.json'
 
 const darkTheme = createTheme({ palette: { mode: 'dark' } })
@@ -55,6 +56,7 @@ function App() {
                     <Tab label="Transfers" value="1" />
                     <Tab label="Transfererlöse" value="2" />
                     <Tab label="Spieler" value="3" />
+                    <Tab label="Manager" value="4" />
                   </TabList>
                 </Grid>
                 <Grid item><Typography variant="button" style={{ opacity: '0.7' }}>Stand: {new Date(timestamp.time).toLocaleString('de-DE')}</Typography></Grid>
@@ -104,6 +106,12 @@ function App() {
               <Paper sx={{ marginTop: 2 }} elevation={5}>
                 <Typography variant="h4" sx={{ padding: 1 }}>Freie Spieler</Typography>
                 <FreePlayersTable />
+              </Paper>
+            </TabPanel>
+            <TabPanel sx={{ padding: 0 }} value="4">
+              <Paper sx={{ marginTop: 2 }} elevation={5}>
+                <Typography variant="h4" sx={{ padding: 1 }}>Expected Points Ratio</Typography>
+                <ExpectedPointsBarChart />
               </Paper>
             </TabPanel>
           </TabContext>
