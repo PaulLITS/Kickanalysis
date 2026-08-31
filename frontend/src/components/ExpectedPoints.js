@@ -22,6 +22,7 @@ function ExpectedPointsBarChart(props) {
     return (
         <div style={{ height: '30em' }}>
             <ResponsiveBar
+                animate={false}
                 data={processedData}
                 keys={['value1', 'value2']}
                 indexBy="user"
