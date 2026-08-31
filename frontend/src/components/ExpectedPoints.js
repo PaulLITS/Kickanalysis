@@ -1,10 +1,11 @@
 import { ResponsiveBar } from '@nivo/bar'
+/*
 import Typography from '@mui/material/Typography'
 import Paper from '@mui/material/Paper'
 
 
 import { nivoDarkTheme, nivoLightTheme } from './SharedConstants'
-
+*/
 import data from '../data/expected_points.json'
 
 function ExpectedPointsBarChart(props) {
