@@ -116,7 +116,7 @@ def calculate_daily_gain():
     else:
         gain_data = {}
        
-    if dt.hour >= 22 and dt.hour < 24:
+    if dt.hour == 22:
         
         current_day = datetime.now().strftime("%Y-%m-%d")
         

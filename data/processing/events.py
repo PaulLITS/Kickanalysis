@@ -34,7 +34,7 @@ def calculate_events_for_each_manager():
                     continue
                 
                 for x in events:
-                    events_data[user["n"]][str(x)] = events_data[user["n"]].get(str(x), 0) + 1         
+                    events_data[user["n"]][constants.k_codes.get(str(x),str(x))] = events_data[user["n"]].get(str(x), 0) + 1         
                   
     with open("./data/events.json", "w", encoding="utf-8") as f:
         json.dump(events_data, f, indent=2, ensure_ascii=False,)
