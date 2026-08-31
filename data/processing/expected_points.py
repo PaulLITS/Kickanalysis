@@ -16,7 +16,7 @@ def calculate_expected_points_for_each_manager():
         expected_points[user["n"]] = [0,0] 
         for day_id,day in result[user["i"]].items():
             for player in day:
-                performance = manager.get(f"/leagues/{manager.leagueid}/players/{player}/performance")["it"][-1]["ph"][day_id-1]
+                performance = manager.get(f"/leagues/{manager.leagueid}/players/{player}/performance")["it"][-1]["ph"][int(day_id)-1]
                 player_stats = manager.get(f'/leagues/{manager.leagueid}/players/{player["i"]}')
                 
                 minutes = performance.get("mp",0)
