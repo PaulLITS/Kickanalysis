@@ -1,6 +1,7 @@
-import { ResponsiveLine } from '@nivo/line'
+import { ResponsiveBar } from '@nivo/line'
 import Typography from '@mui/material/Typography'
 import Paper from '@mui/material/Paper'
+
 
 import { nivoDarkTheme, nivoLightTheme } from './SharedConstants'
 
