@@ -153,4 +153,3 @@ def get_matchday_elevens():
 
     with open("./data/matchday_teams.json", "w") as f:
         json.dump(result, f, indent=2)
-#lol

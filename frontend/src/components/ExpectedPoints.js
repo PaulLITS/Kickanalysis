@@ -41,6 +41,7 @@ function ExpectedPointsBarChart(props) {
 
 
 /*
+
 function ExpectedPointsBarChart(props) {
     var processedData = []
 

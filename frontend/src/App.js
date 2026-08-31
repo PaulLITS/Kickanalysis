@@ -108,8 +108,12 @@ function App() {
                 <FreePlayersTable />
               </Paper>
             </TabPanel>
-            
-
+            <TabPanel sx={{ padding: 0 }} value="4">
+              <Paper sx={{ marginTop: 2 }} elevation={5}>
+                <Typography variant="h4" sx={{ padding: 1 }}>Expected Points Ratio</Typography>
+                <ExpectedPointsBarChart />
+              </Paper>
+            </TabPanel>
           </TabContext>
         </Box>
         <Paper sx={{ width: '1000px' }} elevation={5}>
