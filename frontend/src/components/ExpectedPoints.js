@@ -1,4 +1,4 @@
-import { ResponsiveBar } from '@nivo/line'
+import { ResponsiveBar } from '@nivo/bar'
 import Typography from '@mui/material/Typography'
 import Paper from '@mui/material/Paper'
 
