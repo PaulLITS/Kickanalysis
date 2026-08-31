@@ -11,27 +11,27 @@ function ExpectedPointsBarChart(props) {
     var processedData = []
 
     for (var user in data) {
-        processedData.push({
-            user: user,
-            value1: data[user][0],
-            value2: data[user][1]
-        })
-    }
+    processedData.push({
+        user: user,
+        expectedPoints: data[user][0],
+        points: data[user][1]
+    })
+}
 
     return (
         <div style={{ height: '30em' }}>
             <ResponsiveBar
                 theme={props.darkModeEnabled ? nivoDarkTheme : nivoLightTheme}
                 data={processedData}
-                keys={['firstValue', 'secondValue']}
+                keys={['expectedPoints', 'points']}
                 indexBy="user"
                 groupMode="grouped"
 
                 margin={{ top: 10, right: 180, bottom: 60, left: 100 }}
 
                 colors={({ id }) => {
-                    if (id === 'firstValue') return '#4dabf7'
-                    if (id === 'secondValue') return '#ff922b'
+                    if (id === 'expectedPoints') return '#4dabf7'
+                    if (id === 'points') return '#ff922b'
                     return '#999'
                 }}
 
@@ -49,11 +49,11 @@ function ExpectedPointsBarChart(props) {
                     legend: 'Points',
                     legendOffset: 0,
                     format: value =>
-                        `${new Intl.NumberFormat('de-DE', {
+                        new Intl.NumberFormat('de-DE', {
                             maximumFractionDigits: 0,
                             notation: 'compact',
                             compactDisplay: 'short'
-                        }).format(value)} €`
+                        }).format(value)
                 }}
 
                 axisBottom={{
