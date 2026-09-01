@@ -20,10 +20,10 @@ def get_mv_on_date(data, target_date):
 
 def get_turnovers():
     result = []
-
+    starting_value = {}
     for user in tqdm(manager.users, desc="Collecting turnovers from sold players"):
         transfers = []
-
+        starting_value[user["n"]] = 0
         for buy in manager.get_transfers_raw(user['i']):
             if parser.parse(buy['dt']) < manager.start:
                 continue
@@ -51,7 +51,8 @@ def get_turnovers():
         transfers.reverse()
 
         turnovers = []
-
+        
+        
         for i, buy_transfer in enumerate(transfers):
             if buy_transfer['type'] == 'sell':
                 continue
@@ -80,7 +81,7 @@ def get_turnovers():
                 for event in player_history:
                     if manager.start.date() == parser.parse(event.get('dt')).date() and event['t'] == 0:
                         og_money = mv
-                        
+                        starting_value[user["n"]] += mv
                         break
                 
                 if og_money is None:
@@ -109,5 +110,8 @@ def get_turnovers():
 
     with open('./data/turnovers.json', 'w') as f:
         f.writelines(json.dumps(result, default=json_serialize_datetime))
-
+        
+    with open('./data/starting_budget.json', 'w') as f:
+            f.writelines(json.dumps(starting_value, default=json_serialize_datetime))
+            
     calculate_revenue_data_daily(result)

@@ -77,7 +77,9 @@ def calculate_daily_budget():
     # Load existing revenue data
     with open("./data/revenue_sum.json", "r", encoding="utf-8") as f:
         revenue_data = json.load(f)
-    
+    with open("./data/starting_budget.json", "r", encoding="utf-8") as f:
+        starting_budget_data = json.load(f)
+            
     if os.path.exists("./data/budget_sum.json"):
         with open("./data/budget_sum.json", "r", encoding="utf-8") as f:
             Budget_data = json.load(f)
@@ -93,7 +95,7 @@ def calculate_daily_budget():
         total_mvgl = sum(
             player.get("mvgl", 0)
             for player in Response["it"]
-        ) + 150000000  + 100000*(days_since(manager.start)-9) + 450000 + (dashboard["tp"]*1000) +  revenue_data[user["n"]][-1][1]
+        ) + starting_budget_data[user["n"]] + 50000000  + 100000*(days_since(manager.start)-9) + 450000 + (dashboard["tp"]*1000) +  revenue_data[user["n"]][-1][1]
         
         print(f"{total_mvgl}/{user["n"]}")
         
