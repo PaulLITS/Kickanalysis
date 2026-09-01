@@ -14,8 +14,8 @@ function ExpectedPointsBarChart(props) {
     for (var user in data) {
         processedData.push({
             user: user,
-            expectedPoints: data[user][0],
-            points: data[user][1]
+            Points: data[user][0],
+            Expected_points: data[user][1]
         })
     }
 
@@ -24,7 +24,7 @@ function ExpectedPointsBarChart(props) {
             <ResponsiveBar
                 animate={false}
                 data={processedData}
-                keys={['expectedPoints', 'points']}
+                keys={['Points', 'Expected_points']}
                 indexBy="user"
                 groupMode="grouped"
                 margin={{ top: 10, right: 20, bottom: 60, left: 100 }}
