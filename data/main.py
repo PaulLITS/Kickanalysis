@@ -29,17 +29,17 @@ def main():
 
     manager.init(options)
     manager.get_bonus()
-    calculate_expected_points_for_each_manager()
-    calculate_events_for_each_manager() 
-    get_turnovers()
+    
+    get_turnovers() #has to happen before get_taken_players() and calculate_daily_budget()
+    get_taken_players()
     calculate_daily_budget()
     calculate_daily_gain()
-    get_taken_players()
-    get_players_mw_change()
+    calculate_expected_points_for_each_manager()
+    calculate_events_for_each_manager() 
     calculate_team_value_per_match_day()
     get_market_players()
     get_matchday_elevens()
-    
+    get_players_mw_change()
     
     
     # Timestamp for frontend
