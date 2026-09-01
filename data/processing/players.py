@@ -10,7 +10,10 @@ from processing.turnovers import get_mv_on_date
 
 def get_taken_players():
     result = []
-
+    
+    with open("./data/starting_budget.json", "r", encoding="utf-8") as f:
+            starting_budget_data = json.load(f)
+    
     for user in tqdm(manager.users, desc="Collecting taken players for each manager"):
         taken_players = []
 
@@ -35,6 +38,10 @@ def get_taken_players():
                 bought_date = parser.parse(transfer['dt'])
 
                 break
+            
+            if bought_date == manager.start:
+                starting_budget_data[user["n"]] += buy_value
+                
             real_player = manager.get(f'/leagues/{manager.leagueid}/players/{player["pi"]}')
             taken_players.append({
                 'first_name': real_player.get('fn'),
@@ -55,7 +62,9 @@ def get_taken_players():
 
     with open('./data/taken_players.json', 'w') as f:
         f.writelines(json.dumps(result, default=json_serialize_datetime))
-
+        
+    with open('./data/starting_budget.json', 'w') as f:
+                f.writelines(json.dumps(starting_budget_data, default=json_serialize_datetime))
     get_free_players(result)
 
 
