@@ -21,7 +21,7 @@ def calculate_expected_points_for_each_manager():
                 
                 minutes = performance.get("mp",0)
                 points = performance.get("p",0)
-                avg_minutes = player_stats.get("sec",0)//60
+                avg_minutes = round(player_stats.get("sec", 0) / 60)
                 avg_points = player_stats.get("ap",0)
                 
                 if minutes == 0 or avg_minutes == 0:
