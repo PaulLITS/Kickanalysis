@@ -17,17 +17,16 @@ def calculate_expected_points_for_each_manager():
         for day_id,day in result[user["i"]].items():
             for player in day:
                 performance = manager.get(f"/leagues/{manager.leagueid}/players/{player}/performance")["it"][-1]["ph"][int(day_id)-1]
-                player_stats = manager.get(f'/leagues/{manager.leagueid}/players/{player}')
                 
-                minutes = performance.get("mp",0)
+                minutes = float(performance.get("mp",0).rstrip("'"))
                 points = performance.get("p",0)
-                avg_minutes = round(round(player_stats.get("sec", 0) / 60) / len(result[user["i"]]))
-                avg_points = player_stats.get("ap",0)
+                avg_minutes = round(performance.get("asp",0) / 60)
+                avg_points = performance.get("ap",0)
                 
                 if minutes == 0 or avg_minutes == 0:
                     continue
                 else:
-                    expected_points[user["n"]][1] += avg_points * float(minutes.rstrip("'"))/avg_minutes
+                    expected_points[user["n"]][1] += avg_points * minutes/avg_minutes
                     expected_points[user["n"]][0] += points
                 
     with open("./data/expected_points.json", "w", encoding="utf-8") as f:

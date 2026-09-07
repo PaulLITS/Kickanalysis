@@ -91,10 +91,10 @@ MATCH_DAYS = {
 
 
 k_codes = {
-    1: "Goal/elfer",
+    1: "Tor/Elfer",
     2: "Eigentor",
-    3: "assist",
-    4: "Gelbe karte",
+    3: "Assist",
+    4: "Gelbe karten",
     5: "gelbrote Karte",
     6: "Rote karte",
     7: "Elver Gehalten",
