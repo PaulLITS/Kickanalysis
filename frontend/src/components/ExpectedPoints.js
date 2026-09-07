@@ -40,7 +40,7 @@ function ExpectedPointsBarChart(props) {
     )
 }
 
-
+export default ExpectedPointsBarChart
 /*
 
 function ExpectedPointsBarChart(props) {
@@ -135,4 +135,3 @@ function ExpectedPointsBarChart(props) {
 }
 */
 
-export default ExpectedPointsBarChart

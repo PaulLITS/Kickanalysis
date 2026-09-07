@@ -23,6 +23,8 @@ import TransferRevenueLineChart from './components/TransferRevenueLineChart'
 import TurnoversTable from "./components/TurnoversTable"
 import DailyGainLineChart from "./components/DailyGain"
 import ExpectedPointsBarChart from './components/ExpectedPoints'
+import GoalsBarChart from './components/Tore'
+import CardsBarChart from './components/Karten'
 import timestamp from './data/timestamp.json'
 
 const darkTheme = createTheme({ palette: { mode: 'dark' } })
@@ -112,6 +114,14 @@ function App() {
               <Paper sx={{ marginTop: 2 }} elevation={5}>
                 <Typography variant="h4" sx={{ padding: 1 }}>Expected Points Ratio</Typography>
                 <ExpectedPointsBarChart />
+              </Paper>
+              <Paper sx={{ marginTop: 2 }} elevation={5}>
+                <Typography variant="h4" sx={{ padding: 1 }}>Erhaltene Karten</Typography>
+                <CardsBarChart />
+              </Paper>
+              <Paper sx={{ marginTop: 2 }} elevation={5}>
+                <Typography variant="h4" sx={{ padding: 1 }}>Scorer pro Manager</Typography>
+                <GoalsBarChart />
               </Paper>
             </TabPanel>
           </TabContext>
