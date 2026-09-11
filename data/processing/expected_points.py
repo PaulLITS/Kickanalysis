@@ -18,7 +18,7 @@ def calculate_expected_points_for_each_manager():
             for player in day:
                 performance = manager.get(f"/leagues/{manager.leagueid}/players/{player}/performance")["it"][-1]["ph"][int(day_id)-1]
                 
-                minutes = float(performance.get("mp",0).rstrip("'"))
+                minutes = float(performance.get("mp","0").rstrip("'"))
                 points = performance.get("p",0)
                 avg_minutes = round(performance.get("asp",0) / 60)
                 avg_points = performance.get("ap",0)
