@@ -23,7 +23,7 @@ def calculate_events_for_each_manager():
             events_data[user["n"]]["day"] = 0
         
             
-        if (manager.league_current_matchday("min")-1 <= len(result[user["i"]])) and manager.league_current_matchday("min")-1 > events_data[user["n"]]["day"]:
+        if (manager.league_current_matchday("min")-1 <= len(result[user["i"]])) and manager.league_current_matchday("max") > events_data[user["n"]]["day"]:
             events_data[user["n"]]["day"] += 1 
             for player in result[user["i"]][str(manager.league_current_matchday("min")-1)]:
                 performance = manager.get(f"/leagues/{manager.leagueid}/players/{player}/performance")["it"][-1]["ph"][manager.league_current_matchday("min")-2]
